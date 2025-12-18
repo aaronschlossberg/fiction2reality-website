@@ -1,0 +1,7 @@
+# Legacy .html cleanup
+<!-- /___.html                           /___ 301 -->
+
+# Netlify subdomain → canonical custom domain
+https://fiction2reality.netlify.app/* https://www.fiction2reality.com/:splat 301!
+http://fiction2reality.com/* https://www.fiction2reality.com/:splat 301!
+https://fiction2reality.com/* https://www.fiction2reality.com/:splat 301!

@@ -1,0 +1,431 @@
+/* style.css */
+:root {
+  --purple: #563d5a;
+  --light-gray: #f2eff2;
+  --dark-bg: #111;
+  --font: 'Lora', serif;
+}
+* { 
+    margin:0; padding:0; box-sizing:border-box; 
+}
+
+body { 
+    font-family: var(--font); color: #222; 
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;          /* keep horizontal centering */
+  justify-content: center;      /* vertical centering baseline */
+  text-align: center;
+  padding-top: 80px;            /* shifts everything slightly higher */
+  background: linear-gradient(180deg, #1a1320 0%, #2b1f35 100%);
+  overflow: hidden;
+}
+
+
+.hero .overlay { 
+    position:absolute; inset:0; background:rgba(0,0,0,0.5); 
+}
+
+.hero h1 { 
+    position:relative; font-size:3rem; color:#fff; line-height:1.2; 
+}
+
+.hero .sub { 
+    display:block; font-size:1.5rem; color:#ccc; 
+}
+
+.scroll-prompt { 
+    position:absolute; bottom:2rem; color:#fff; font-size:1rem; animation: bounce 2s infinite; 
+}
+
+@keyframes bounce { 
+    0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);} 
+}
+
+section { padding:4rem 2rem; }
+.intro { display:flex; flex-wrap:wrap; background:var(--light-gray); }
+.intro .text-block { flex:1; min-width:280px; padding:1rem; }
+.intro .images-grid { 
+    flex:1; 
+    display:grid; 
+    grid-template-columns:1fr 1fr; 
+    gap:1rem; 
+    padding:1rem; 
+}
+
+.images-grid img {
+  width: 100%;      /* fill the container */
+  height: auto;     /* keep proportions */
+  object-fit: cover; /* optional: crop to fit */
+  border-radius: 12px; /* optional: rounded corners */
+}
+
+.placeholder { 
+    background: #ddd; 
+    border-radius:8px; 
+    min-height:150px; 
+}
+
+.placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px; /* if your placeholder has rounded corners */
+  display: block; /* remove extra bottom whitespace */
+}
+
+.btn {
+  background:#fff; color:var(--purple); border:none; padding:0.8rem 1.5rem; cursor:pointer;
+  font-family:var(--font); font-size:1rem; transition:transform .2s;
+}
+.btn:hover { transform:scale(1.05); }
+
+.features { 
+  text-align:center; 
+}
+
+.features .subheader { font-style:italic; margin-bottom:2rem; }
+.cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:2rem; }
+.card { background:#f9f9f9; padding:1.5rem; border-radius:12px; transition:transform .3s; }
+.card:hover { transform:scale(1.03); }
+/* Icon circles in "Imaginary Realms Transformed" cards */
+.card .icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 1.5rem;
+
+    border-radius: 50%;
+    /* keep or remove this depending on whether you want a purple disc behind the icon */
+    background: var(--purple);      /* or: background: transparent; */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;               /* crops the image to the circle */
+}
+
+/* Images inside the small icon circles */
+.card .icon img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    display: block;
+}
+
+.card h3 { margin-bottom:0.5rem; }
+
+.liminal { background:var(--purple); color:#fff; text-align:center; }
+.liminal p { margin-bottom:2rem; }
+.gallery { display:flex; gap:1rem; justify-content:center; margin-bottom:2rem; }
+.gallery-img { flex:1; min-height:150px; background:#444; border-radius:8px; }
+
+footer.cta { background:var(--dark-bg); color:#D7D7D8; text-align:center; padding:3rem 1rem; }
+footer h2 { margin-bottom:1rem; }
+footer p { margin-top:2rem; font-size:0.9rem; color:#888; }
+footer .btn { background:var(--purple); color:#fff; }
+
+:root {
+--purple:#563d5a; --light:#f2eff2; --dark:#0f0f11; --ink:#222; --muted:#8f8791; --radius:16px; --shadow:0 10px 25px rgba(0,0,0,.15);
+}
+*{box-sizing:border-box}
+body{margin:0;padding:0;font-family:'Lora',serif;color:var(--ink);scroll-behavior:smooth}
+/* a{color:inherit;text-decoration:none} */
+img{max-width:100%;display:block;border-radius:12px}
+.container{width:min(1100px,92%);margin-inline:auto}
+header.hero{position:relative;min-height:100vh;display:grid;place-items:center;text-align:center;overflow:hidden;background:linear-gradient(180deg,#1a1320 0%,#2b1f35 100%);}
+header.hero::before{content:"";position:absolute;inset:0;background:url('placeholder-hero.jpg') center/cover no-repeat;filter:brightness(.45);opacity:.9;}
+header .brand{position:relative;display:inline-block;background:#dcd3e1;color:var(--purple);padding:.35rem .7rem;border-radius:10px;margin-bottom:1rem;box-shadow:0 8px 18px rgba(0,0,0,.25);}
+header h1{position:relative;color:#fff;font-weight:700;font-size:clamp(2.6rem,7vw,5rem);line-height:1.05;margin:.25rem 0;}
+header .sub{color:#e9e3ec;font-size:1.2rem;display:block;margin-top:.25rem;}
+.scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);color:#ffffff;letter-spacing:.3px;background:rgba(0,0,0,.25);padding:.4rem .8rem;border-radius:999px;backdrop-filter:blur(3px);animation:bob 2s infinite}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-8px)}}
+section{padding:64px 0}
+.section-title{font-size:clamp(1.6rem,3vw,2.2rem);margin:0 0 10px}
+.section-sub{color:var(--muted);font-style:italic;margin:0 0 26px}
+.intro{background:var(--light)}
+/* .intro-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:26px} */
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;transition:.25s transform,.25s box-shadow}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(0,0,0,.18)}
+.btn{display:inline-block;background:#fff;color:var(--purple);border:2px solid var(--purple);padding:.7rem 1.2rem;border-radius:10px;cursor:pointer;transition:.2s transform,.2s background,.2s color}
+.btn:hover{transform:translateY(-2px);background:var(--purple);color:#fff}
+.ph{background:#ddd;border-radius:12px;min-height:220px;display:grid;place-items:center;color:#777}
+.features .grid{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;margin-top:24px}
+.icon{width:42px;height:42px;border-radius:50%;background:var(--purple);margin:0 auto 12px}
+.feature.card{text-align:center; width:min(320px,100%);}
+.liminal{background:var(--purple);color:#fff;text-align:center}
+.liminal .gallery{display:flex;gap:18px;justify-content:center;margin:26px auto 18px;flex-wrap:wrap}
+.liminal .gallery .ph{background:#3a2b3f;min-width:260px;min-height:180px}
+.liminal .btn{background:#fff;color:var(--purple);border:none}
+.info{background:var(--light)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+details.faq{background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:18px}
+details.faq summary{cursor:pointer;font-weight:600}
+details.faq[open]{outline:2px solid #e1d7e6}
+.steps{counter-reset:step}
+.steps li{list-style:none;margin:10px 0;padding-left:36px;position:relative}
+.steps li::before{counter-increment:step;content:counter(step);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;background:var(--purple);color:#fff;display:grid;place-items:center;font-size:.9rem}
+footer.cta{background:#111;color:#fff;text-align:center;padding:70px 0}
+footer .btn{background:var(--purple);color:#fff;border:none}
+footer p{margin-top:16px;color:#b7b0ba;font-size:.95rem}
+@media(max-width:900px){.intro-grid{grid-template-columns:1fr}}
+
+body {
+  font-family: 'Lora', serif;
+}
+
+em, i {
+  font-style: italic; /* Will now use the proper italic face */
+}
+
+em, i {
+  font-style: italic;
+  font-synthesis: none; /* disables fake bold/italic synthesis */
+}
+
+.hero img {
+  width: 260px;            /* increase for a bigger logo */
+  max-width: 40vw;         /* keeps it responsive */
+  height: auto;
+  margin-top: 100px;       /* pushes it lower down the hero */
+  margin-bottom: 1.5rem;   /* space between logo and text */
+  filter: drop-shadow(0 6px 15px rgba(0,0,0,0.35));
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.hero h1 {
+  margin-top: 0rem;   /* reduces gap between logo and text */
+  margin-bottom: 1rem;  /* keeps space before "Scroll to Discover" */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* “Fiction Becomes Reality” + image column */
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* <-- equal width columns */
+  gap: 2rem;
+  align-items: stretch;
+}
+
+/* The two big rectangles in that row */
+.intro-card,
+.intro-media {
+  height: 100%;        /* fill the full row height */
+}
+
+/* Optional: hover polish */
+.img-frame:hover img {
+  transform: scale(1.02);
+  transition: transform .25s ease;
+}
+
+/* Purple right-hand panel in the intro section */
+/* Purple right-hand panel in the intro section */
+.media-panel {
+    background: var(--purple);
+    color: #fff;
+    padding: 2.2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display: grid;
+    gap: 14px;
+    width: 100%;        /* fill its grid column */
+}
+
+/* Frames for the stacked images */
+.media-panel .img-frame {
+  border-radius: 14px;
+  overflow: hidden;
+  max-height: 260px;         /* ⬅ controls how tall each one is */
+}
+
+/* Images inside that panel */
+.media-panel .img-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;         /* fill the tile nicely, no distortion */
+  background: transparent;
+  display: block;
+}
+
+/* Liminal Landscapes gallery layout */
+.liminal .gallery {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+/* Each card that holds an image */
+.gallery-img {
+  width: min(360px, 90vw);
+  aspect-ratio: 4 / 3;       /* ⬅ consistent tile shape */
+  border-radius: 18px;
+  background: #e9e6f0;       /* light card background */
+  overflow: hidden;
+  box-shadow: 0 14px 30px rgba(0,0,0,.18);
+}
+
+/* Images inside Liminal cards */
+.gallery-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;         /* fills the frame, no squashed look */
+  background: transparent;
+  display: block;
+}
+
+/* --- Make object-fit: contain bars transparent --- */
+
+/* 1) Right-column images in the first section */
+.info-media img,
+.info-media figure,
+.info-media {
+    background-color: transparent !important;
+}
+
+/* 2) Liminal Landscapes gallery images */
+.liminal-gallery img,
+.liminal-gallery figure,
+.liminal-gallery .card,
+.liminal-gallery {
+    background-color: transparent !important;
+}
+
+/* Generic safety net: any image we’re using with object-fit: contain */
+img.contain-fit {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: transparent !important;
+    display: block;
+}
+
+/* Remove underline from button links */
+a:has(.btn) {
+    text-decoration: none !important;
+}
+
+a:has(.btn):hover {
+    text-decoration: none !important;
+}
+
+section #contact {
+    text-align: left;
+}
+
+/* FAQ contact section – tighter and quieter */
+#contact {
+  padding: 0; /* overrides section padding */
+  margin: 0;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+
+/* Icon row */
+#contact .social-buttons {
+  display: flex;
+  justify-content: flex-start; 
+  gap: 12px; 
+  margin-top: 8px;
+}
+
+#contact .social-buttons img.contact-icon {
+  width: 23px;
+  height: 23px;
+  max-width: none;     /* prevents the global img rule from interfering */
+  border-radius: 0;    /* prevents rounded-square look on logos */
+}
+
+#contact h2 {
+    text-align: center; 
+    margin-bottom: 20px; 
+}
+
+.contact-icon {
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  opacity: 0.7;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.contact-icon:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+.contact-hint {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 6px 0 4px 0;
+}
+
+/* --- FAQ social row (subtle, inline, left-aligned) --- */
+details.faq p { margin: 10px 0; }
+details.faq p:last-of-type { margin-bottom: 6px; } /* reduces dead space at bottom */
+
+.faq-social {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin: 0;               /* no extra space */
+  position: relative;
+  padding-top: 8px;
+}
+
+.faq-social::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 180px;                /* shorter than full card */
+  height: 1px;
+  background: rgba(0,0,0,0.06);
+}
+
+/* The wrapper gives padding so X/Gmail don’t look clipped */
+.social-link {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+  padding: 4px;            /* <-- this is the anti-clipping fix */
+  box-sizing: border-box;
+
+  text-decoration: none;
+  opacity: 0.85;
+  transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+}
+
+/* Makes the “circle” feel less harsh (subtle hover only) */
+.social-link:hover {
+  transform: scale(1.05);
+  opacity: 1;
+  background: rgba(0,0,0,0.04);
+}
+
+.contact-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.error-page {
+  text-align: center;
+  padding: 6rem 1.5rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
