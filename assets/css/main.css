@@ -1,10 +1,10 @@
-/* style.css */
 :root {
-  --purple: #563d5a;
-  --light-gray: #f2eff2;
-  --dark-bg: #111;
-  --font: 'Lora', serif;
+    --purple: #563d5a;
+    --light-gray: #f2eff2;
+    --dark-bg: #111;
+    --font: 'Lora', serif;
 }
+
 * { 
     margin:0; padding:0; box-sizing:border-box; 
 }
@@ -14,16 +14,16 @@ body {
 }
 
 .hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;          /* keep horizontal centering */
-  justify-content: center;      /* vertical centering baseline */
-  text-align: center;
-  padding-top: 80px;            /* shifts everything slightly higher */
-  background: linear-gradient(180deg, #1a1320 0%, #2b1f35 100%);
-  overflow: hidden;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;          /* keep horizontal centering */
+    justify-content: center;      /* vertical centering baseline */
+    text-align: center;
+    padding-top: 80px;            /* shifts everything slightly higher */
+    background: linear-gradient(180deg, #1a1320 0%, #2b1f35 100%);
+    overflow: hidden;
 }
 
 
@@ -59,34 +59,35 @@ section { padding:4rem 2rem; }
 }
 
 .images-grid img {
-  width: 100%;      /* fill the container */
-  height: auto;     /* keep proportions */
-  object-fit: cover; /* optional: crop to fit */
-  border-radius: 12px; /* optional: rounded corners */
+    width: 100%;      /* fill the container */
+    height: auto;     /* keep proportions */
+    object-fit: cover; /* optional: crop to fit */
+    border-radius: 12px; /* optional: rounded corners */
 }
 
 .placeholder { 
     background: #ddd; 
-    border-radius:8px; 
-    min-height:150px; 
+    border-radius: 8px; 
+    min-height: 150px; 
 }
 
 .placeholder img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 12px; /* if your placeholder has rounded corners */
-  display: block; /* remove extra bottom whitespace */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px; /* if your placeholder has rounded corners */
+    display: block; /* remove extra bottom whitespace */
 }
 
 .btn {
-  background:#fff; color:var(--purple); border:none; padding:0.8rem 1.5rem; cursor:pointer;
-  font-family:var(--font); font-size:1rem; transition:transform .2s;
+    background:#fff; color:var(--purple); border:none; padding:0.8rem 1.5rem; cursor:pointer;
+    font-family:var(--font); font-size:1rem; transition:transform .2s;
 }
+
 .btn:hover { transform:scale(1.05); }
 
 .features { 
-  text-align:center; 
+    text-align:center; 
 }
 
 .features .subheader { font-style:italic; margin-bottom:2rem; }
@@ -175,56 +176,56 @@ footer p{margin-top:16px;color:#b7b0ba;font-size:.95rem}
 @media(max-width:900px){.intro-grid{grid-template-columns:1fr}}
 
 body {
-  font-family: 'Lora', serif;
+    font-family: 'Lora', serif;
 }
 
 em, i {
-  font-style: italic; /* Will now use the proper italic face */
+    font-style: italic; /* Will now use the proper italic face */
 }
 
 em, i {
-  font-style: italic;
-  font-synthesis: none; /* disables fake bold/italic synthesis */
+    font-style: italic;
+    font-synthesis: none; /* disables fake bold/italic synthesis */
 }
 
 .hero img {
-  width: 260px;            /* increase for a bigger logo */
-  max-width: 40vw;         /* keeps it responsive */
-  height: auto;
-  margin-top: 100px;       /* pushes it lower down the hero */
-  margin-bottom: 1.5rem;   /* space between logo and text */
-  filter: drop-shadow(0 6px 15px rgba(0,0,0,0.35));
-  animation: fadeIn 1.5s ease-in-out;
+    width: 260px;            /* increase for a bigger logo */
+    max-width: 40vw;         /* keeps it responsive */
+    height: auto;
+    margin-top: 100px;       /* pushes it lower down the hero */
+    margin-bottom: 1.5rem;   /* space between logo and text */
+    filter: drop-shadow(0 6px 15px rgba(0,0,0,0.35));
+    animation: fadeIn 1.5s ease-in-out;
 }
 
 .hero h1 {
-  margin-top: 0rem;   /* reduces gap between logo and text */
-  margin-bottom: 1rem;  /* keeps space before "Scroll to Discover" */
+    margin-top: 0rem;   /* reduces gap between logo and text */
+    margin-bottom: 1rem;  /* keeps space before "Scroll to Discover" */
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-15px); }
-  to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* “Fiction Becomes Reality” + image column */
+/* "Fiction Becomes Reality" + image column */
 .intro-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;   /* <-- equal width columns */
-  gap: 2rem;
-  align-items: stretch;
+    display: grid;
+    grid-template-columns: 1fr 1fr;   /* <-- equal width columns */
+    gap: 2rem;
+    align-items: stretch;
 }
 
 /* The two big rectangles in that row */
 .intro-card,
 .intro-media {
-  height: 100%;        /* fill the full row height */
+    height: 100%;        /* fill the full row height */
 }
 
 /* Optional: hover polish */
 .img-frame:hover img {
-  transform: scale(1.02);
-  transition: transform .25s ease;
+    transform: scale(1.02);
+    transition: transform .25s ease;
 }
 
 /* Purple right-hand panel in the intro section */
@@ -242,45 +243,45 @@ em, i {
 
 /* Frames for the stacked images */
 .media-panel .img-frame {
-  border-radius: 14px;
-  overflow: hidden;
-  max-height: 260px;         /* ⬅ controls how tall each one is */
+    border-radius: 14px;
+    overflow: hidden;
+    max-height: 260px;         /* ⬅ controls how tall each one is */
 }
 
 /* Images inside that panel */
 .media-panel .img-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;         /* fill the tile nicely, no distortion */
-  background: transparent;
-  display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;         /* fill the tile nicely, no distortion */
+    background: transparent;
+    display: block;
 }
 
 /* Liminal Landscapes gallery layout */
 .liminal .gallery {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
 }
 
 /* Each card that holds an image */
 .gallery-img {
-  width: min(360px, 90vw);
-  aspect-ratio: 4 / 3;       /* ⬅ consistent tile shape */
-  border-radius: 18px;
-  background: #e9e6f0;       /* light card background */
-  overflow: hidden;
-  box-shadow: 0 14px 30px rgba(0,0,0,.18);
+    width: min(360px, 90vw);
+    aspect-ratio: 4 / 3;       /* ⬅ consistent tile shape */
+    border-radius: 18px;
+    background: #e9e6f0;       /* light card background */
+    overflow: hidden;
+    box-shadow: 0 14px 30px rgba(0,0,0,.18);
 }
 
 /* Images inside Liminal cards */
 .gallery-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;         /* fills the frame, no squashed look */
-  background: transparent;
-  display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;         /* fills the frame, no squashed look */
+    background: transparent;
+    display: block;
 }
 
 /* --- Make object-fit: contain bars transparent --- */
@@ -324,24 +325,24 @@ section #contact {
 
 /* FAQ contact section – tighter and quieter */
 #contact {
-  padding: 0; /* overrides section padding */
-  margin: 0;
-  border-top: 1px solid rgba(0,0,0,0.06);
+    padding: 0; /* overrides section padding */
+    margin: 0;
+    border-top: 1px solid rgba(0,0,0,0.06);
 }
 
 /* Icon row */
 #contact .social-buttons {
-  display: flex;
-  justify-content: flex-start; 
-  gap: 12px; 
-  margin-top: 8px;
+    display: flex;
+    justify-content: flex-start; 
+    gap: 12px; 
+    margin-top: 8px;
 }
 
 #contact .social-buttons img.contact-icon {
-  width: 23px;
-  height: 23px;
-  max-width: none;     /* prevents the global img rule from interfering */
-  border-radius: 0;    /* prevents rounded-square look on logos */
+    width: 23px;
+    height: 23px;
+    max-width: none;     /* prevents the global img rule from interfering */
+    border-radius: 0;    /* prevents rounded-square look on logos */
 }
 
 #contact h2 {
@@ -350,23 +351,23 @@ section #contact {
 }
 
 .contact-icon {
-  width: 26px;
-  height: 26px;
-  margin: 0;
-  opacity: 0.7;
-  cursor: pointer;
-  transition: transform 0.15s ease, opacity 0.15s ease;
+    width: 26px;
+    height: 26px;
+    margin: 0;
+    opacity: 0.7;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
 .contact-icon:hover {
-  transform: scale(1.05);
-  opacity: 1;
+    transform: scale(1.05);
+    opacity: 1;
 }
 
 .contact-hint {
-  font-size: 0.85rem;
-  color: #666;
-  margin: 6px 0 4px 0;
+    font-size: 0.85rem;
+    color: #666;
+    margin: 6px 0 4px 0;
 }
 
 /* --- FAQ social row (subtle, inline, left-aligned) --- */
@@ -374,58 +375,337 @@ details.faq p { margin: 10px 0; }
 details.faq p:last-of-type { margin-bottom: 6px; } /* reduces dead space at bottom */
 
 .faq-social {
-  display: flex;
-  justify-content: flex-start;
-  gap: 10px;
-  margin: 0;               /* no extra space */
-  position: relative;
-  padding-top: 8px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin: 0;               /* no extra space */
+    position: relative;
+    padding-top: 8px;
 }
 
 .faq-social::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 180px;                /* shorter than full card */
-  height: 1px;
-  background: rgba(0,0,0,0.06);
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 180px;                /* shorter than full card */
+    height: 1px;
+    background: rgba(0,0,0,0.06);
 }
 
 /* The wrapper gives padding so X/Gmail don’t look clipped */
 .social-link {
-  width: 34px;
-  height: 34px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-  border-radius: 999px;
-  padding: 4px;            /* <-- this is the anti-clipping fix */
-  box-sizing: border-box;
+    border-radius: 999px;
+    padding: 4px;            /* <-- this is the anti-clipping fix */
+    box-sizing: border-box;
 
-  text-decoration: none;
-  opacity: 0.85;
-  transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+    text-decoration: none;
+    opacity: 0.85;
+    transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
 }
 
 /* Makes the “circle” feel less harsh (subtle hover only) */
 .social-link:hover {
-  transform: scale(1.05);
-  opacity: 1;
-  background: rgba(0,0,0,0.04);
+    transform: scale(1.05);
+    opacity: 1;
+    background: rgba(0,0,0,0.04);
 }
 
 .contact-icon {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
 }
 
 .error-page {
+    text-align: center;
+    padding: 6rem 1.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* ------------------------------------------------------------
+  Fixed nav (scroll-reveal)
+------------------------------------------------------------ */
+.site-nav {
+    position: relative;   /* normal header behavior */
+    z-index: 10;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+
+    padding: 12px 18px;
+
+    background: rgba(15, 15, 17, 0.45);
+    backdrop-filter: blur(10px);
+
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.site-nav.nav--visible {
+    transform: translateY(0);
+}
+
+.nav-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.nav-brand img {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.35));
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 10px;
+    transition: background 160ms ease, color 160ms ease;
+}
+
+.nav-links a:hover {
+    background: rgba(255,255,255,0.10);
+    color: #fff;
+}
+
+.nav-links a.is-active {
+    background: rgba(255,255,255,0.16);
+    color: #fff;
+}
+
+@media (max-width: 720px) {
+    .nav-links {
+        gap: 8px;
+    }
+    .nav-links a {
+        padding: 8px;
+    }
+    .nav-brand span {
+        display: none; /* keeps it clean on mobile */
+    }
+}
+
+/* ------------------------------------------------------------
+  FAQ page polish (keeps your existing site styling)
+------------------------------------------------------------ */
+
+.page-hero {
+    padding: 110px 0 55px;
+    text-align: center;
+    background: linear-gradient(180deg, #1a1320 0%, #2b1f35 100%);
+    color: #fff;
+}
+
+.page-hero--faq {
+    padding-top: 95px; /* avoids nav overlap if nav is fixed */
+}
+
+.kicker {
+    display: inline-block;
+    margin: 0 auto 10px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    font-style: italic;
+}
+
+.kicker--light {
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.16);
+}
+
+.page-title {
+    margin: 0;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.1;
+}
+
+.page-subtitle {
+    margin: 14px auto 0;
+    max-width: 900px;
+    font-style: italic;
+    color: rgba(255,255,255,0.80);
+}
+
+.faq-shell {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 36px 0 10px;
+}
+
+.faq-title {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.faq-sub {
+    text-align: center;
+    margin: 0 auto 24px;
+    max-width: 800px;
+}
+
+.faq-list {
+    display: grid;
+}
+
+details.faq {
+    padding: 16px 18px;
+    border-radius: 14px;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+details.faq summary {
+    list-style: none;
+    font-size: 1.05rem;
+}
+
+details.faq summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Custom arrow */
+details.faq summary::before {
+    content: "▸";
+    display: inline-block;
+    margin-right: 10px;
+    transform: translateY(-1px);
+    transition: transform 160ms ease;
+    opacity: 0.85;
+}
+
+details.faq[open] summary::before {
+    transform: rotate(90deg) translateX(2px);
+}
+
+details.faq:hover {
+    transform: translateY(-1px);
+}
+
+.faq-body {
+    padding-top: 10px;
+}
+
+.faq-contact {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.faq-links {
+    margin: 10px 0 0;
+    padding-left: 18px;
+    line-height: 1.9;
+}
+
+.faq-cta {
+    margin: 24px auto 0;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    padding: 18px 18px 20px;
+    text-align: center;
+}
+
+.faq-cta h3 {
+    margin: 0 0 8px;
+}
+
+.faq-cta p {
+    margin: 0 0 14px;
+    color: var(--muted);
+    font-style: italic;
+}
+
+/* Center the CTA section + button */
+.faq-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.faq-cta .btn {
+    margin-top: 14px;
+}
+
+/* Full-width CTA band (spans the page, not the container width) */
+.cta-band {
+  width: 100vw;
+  margin-left: calc(50% - 50vw); /* full-bleed trick */
+  margin-top: 28px;
+  padding: 46px 0;
+
+  background: rgba(43, 31, 53, 0.08); /* subtle purple tint */
+  border-top: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.cta-inner {
   text-align: center;
-  padding: 6rem 1.5rem;
-  max-width: 700px;
+}
+
+.cta-inner h3 {
+  margin: 0 0 10px;
+}
+
+.cta-inner p {
+  margin: 0 auto 18px;
+  max-width: 760px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Ensure button is truly centered and sized nicely */
+.cta-inner .btn {
+  display: inline-block;
   margin: 0 auto;
+}
+
+/* Non-home pages: fixed nav should be visible immediately */
+body.not-home .site-nav {
+    transform: translateY(0) !important;
+    transition: none !important;
+}
+
+/* HOME ONLY: make nav fixed + allow reveal */
+body.home .site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+
+  transform: translateY(-120%);
+  transition: transform 220ms ease;
+}
+
+body.home .site-nav.nav--visible {
+  transform: translateY(0);
 }
