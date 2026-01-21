@@ -1,0 +1,78 @@
+{
+  "worlds": [
+    {
+      "id": "backrooms",
+      "title": "Backrooms & Liminal",
+      "subtitle": "Our starting point: The Backrooms and liminal spaces; surreal spaces, found footage, and environments that feel too familiar to be safe.",
+      "accent": "#D8C45A",
+      "videos": [
+        {
+          "youtubeId": "6y0-W0RH0ak",
+          "title": "<strong>Backrooms: Lobby Lingerer (V1)</strong>",
+          "desc": "<strong style=\"font-weight: normal;\">After noclipping out of reality, Adam wanders the Backrooms Lobby... but something's different. (Version 1)</strong>"
+        },
+        {
+          "youtubeId": "y6Dq2nGNVDY",
+          "title": "<strong>Backrooms: Lobby Lingerer (V2)</strong>",
+          "desc": "<strong style=\"font-weight: normal;\">After noclipping out of reality, Adam wanders the Backrooms Lobby... but something's different. (Version 2)</strong>"
+        }
+      ]
+    },
+
+    {
+      "id": "hogwarts",
+      "title": "Hogwarts",
+      "subtitle": "A complete, explorable Hogwarts castle, with the rooms, corridors, and all.",
+      "accent": "#5e5d59",
+      "videos": [
+        {
+          "youtubeId": "PWJCXkG3IHY",
+          "title": "<strong>Hogwarts: Vernon at Hogwarts</strong>",
+          "desc": "<strong style=\"font-weight: normal;\">If Vernon Dursley went to Hogwarts! <br> [<i>Placeholder video card; will be changed.</i>]</strong>"
+        }
+      ]
+    },
+
+    {
+      "id": "jurassic",
+      "title": "Jurassic Park",
+      "subtitle": "A real Jurassic Park experience.",
+      "accent": "#2E7D32",
+      "videos": [
+        {
+          "youtubeId": "E8WaFvwtphY",
+          "title": "<strong>Jurassic Park: Welcome to the Park</strong>",
+          "desc": "<strong style=\"font-weight: normal;\">The main characters of movie #1 enter Jurassic Park for the first time. <br> [<i>Placeholder video card; will be changed.</i>]</strong>"
+        }
+      ]
+    },
+
+    {
+      "id": "wonka",
+      "title": "Willy Wonka",
+      "subtitle": "A real chocolate factory experience, like in Willy Wonka & the Chocolate Factory.",
+      "accent": "#8E44AD",
+      "videos": [
+        {
+          "youtubeId": "SVi3-PrQ0pY",
+          "title": "<strong>Willy Wonka: Pure Imagination</strong>",
+          "desc": "<strong style=\"font-weight: normal;\">The \"Pure Imagination\" song sequence inside the chocolate factory. <br> [<i>Placeholder video card; will be changed.</i>]</strong>"
+        }
+      ]
+    },
+
+    {
+      "id": "pokemon",
+      "title": "Pokémon",
+      "subtitle": "A real Pokémon world experience, in whatever form that may take.",
+      "accent": "#FFCB05",
+      "videos": [
+        {
+          "youtubeId": "p09hhXbsB9c",
+          "title": "<strong>Team Rocket Encounter Theme</strong>",
+          "desc": "<strong style=\"font-weight: normal;\">Team Rocket's iconic encounter theme music. <br> [<i>Placeholder video card; will be changed.</i>]</strong>"
+        }
+      ]
+    }
+  ]
+}

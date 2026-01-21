@@ -146,8 +146,15 @@ header .sub{color:#e9e3ec;font-size:1.2rem;display:block;margin-top:.25rem;}
 .scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);color:#ffffff;letter-spacing:.3px;background:rgba(0,0,0,.25);padding:.4rem .8rem;border-radius:999px;backdrop-filter:blur(3px);animation:bob 2s infinite}
 @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-8px)}}
 section{padding:64px 0}
-.section-title{font-size:clamp(1.6rem,3vw,2.2rem);margin:0 0 10px}
-.section-sub{color:var(--muted);font-style:italic;margin:0 0 26px}
+.section-title {
+    font-size:clamp(1.6rem,3vw,2.2rem);margin:0 0 10px;
+    text-align: center;
+}
+
+.section-sub{
+    color:var(--muted);font-style:italic;margin:0 0 26px;
+    text-align: center;
+}
 .intro{background:var(--light)}
 /* .intro-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:26px} */
 .card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;transition:.25s transform,.25s box-shadow}
@@ -708,4 +715,527 @@ body.home .site-nav {
 
 body.home .site-nav.nav--visible {
   transform: translateY(0);
+}
+
+/* Non-home pages: make header read more like a page header (stronger contrast) */
+body:not(.home) .site-nav {
+  background: rgba(15, 15, 17, 0.72); /* was ~0.45 */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(8px);
+}
+
+/* --- Mobile toggle button --- */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #fff;
+    margin: 4px 0;
+    border-radius: 2px;
+}
+
+/* --- Mobile nav behavior --- */
+@media (max-width: 720px) {
+    .nav-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        right: 16px;
+        background: rgba(15, 15, 17, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 14px;
+        padding: 10px;
+        flex-direction: column;
+        gap: 6px;
+
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-6px);
+        transition: opacity 160ms ease, transform 160ms ease;
+    }
+
+    .nav-links.nav-open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   VIDEOS PAGE
+   ========================= */
+
+/* Hero (top banner) */
+.page-hero--videos {
+    /* If you already have a generic .page-hero, this just customizes it */
+    background: radial-gradient(1200px 400px at 50% 35%, rgba(167, 124, 255, 0.22), rgba(15, 15, 17, 0.0)),linear-gradient(180deg, rgba(20, 18, 26, 0.95), rgba(20, 18, 26, 0.75));
+    color: #fff;
+}
+
+/* Section wrapper */
+.video-section {
+    padding: 44px 0;
+}
+
+.video-section__head {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 22px;
+}
+
+.video-section__title {
+    margin: 0 0 6px;
+    font-size: clamp(28px, 2.2vw, 40px);
+}
+
+.video-section__sub {
+    margin: 0 auto;
+    max-width: 760px;
+    color: rgba(0,0,0,0.65);
+    font-style: italic;
+}
+
+/* Grid:
+   - “max 4 per row” via fixed card width + centered grid tracks
+   - Last row auto-centers because tracks are fixed-width, not 1fr
+*/
+.video-grid {
+    --cardW: 320px; /* adjust if you want bigger/smaller cards */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--cardW), var(--cardW)));
+    justify-content: center;
+    gap: 18px;
+    margin-top: 22px;
+}
+
+/* Responsive: 3 per row-ish then 2 then 1 */
+@media (max-width: 1200px) {
+    .video-grid { --cardW: 300px; }
+}
+
+@media (max-width: 980px) {
+    .video-grid { --cardW: 280px; }
+}
+
+@media (max-width: 720px) {
+    .video-grid {
+        --cardW: min(92vw, 360px);
+        gap: 14px;
+  }
+}
+
+/* Card */
+.video-card {
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+    overflow: hidden;
+    padding: 14px;
+}
+
+/* Square embed */
+.video-embed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #111;
+}
+
+/* Titles / text */
+.video-card__title {
+    margin: 12px 0 6px;
+    font-size: 20px;
+}
+
+.video-card__desc {
+    margin: 0 0 10px;
+    color: rgba(0,0,0,0.72);
+    line-height: 1.5;
+}
+
+/* Links row */
+.video-card__links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+}
+
+.video-link {
+    color: rgba(64, 41, 110, 0.95);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.video-link:hover {
+    text-decoration: underline;
+}
+
+.dot {
+    color: rgba(0,0,0,0.35);
+}
+
+/* Empty-state variant */
+.video-card--empty .video-embed {
+    background: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.06));
+    border: 1px dashed rgba(0,0,0,0.18);
+}
+
+.video-embed--empty {
+    display: grid;
+    place-items: center;
+}
+
+.empty-box {
+    text-align: center;
+    padding: 18px;
+}
+
+.empty-title {
+    margin: 0 0 6px;
+    font-weight: 800;
+}
+
+.empty-sub {
+    margin: 0;
+    color: rgba(0,0,0,0.65);
+    font-style: italic;
+}
+
+/* =========================
+   VIDEO GRID
+========================= */
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+    justify-items: center; /* centers cards when row isn't full */
+}
+
+/* =========================
+   VIDEO CARD
+========================= */
+
+.video-card {
+    width: 100%;
+    max-width: 360px; /* controls card size */
+    background: #fff;
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+}
+
+/* =========================
+   VIDEO EMBED (THE FIX)
+========================= */
+/* Square tile */
+.video-embed {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: radial-gradient(ellipse at center, #111 0%, #000 70%);
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+/* 16:9 frame centered inside the square */
+.video-frame {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    width: calc(100% - 20px);   /* padding from edges (10px each side) */
+    aspect-ratio: 16 / 9;
+
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+/* iframe fills the 16:9 frame */
+.video-frame iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: 0;
+}
+
+/* =========================
+   VIDEOS: accents per section
+========================= */
+.video-section {
+    --accent: #A77CFF;
+}
+
+.video-section__title {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 8px;
+}
+
+.video-section__title::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 64px;
+    height: 4px;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    background: var(--accent);
+    opacity: 0.85;
+}
+
+/* =========================
+   Square tile that shows full 16:9 thumbnail (letterboxed)
+========================= */
+.video-tile {
+    all: unset;
+    cursor: pointer;
+    display: block;
+}
+
+.video-thumbwrap {
+    aspect-ratio: 1 / 1;
+    background: #000;            /* black bars */
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* FULL image always visible */
+.video-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;         /* IMPORTANT: no crop */
+    object-position: center;
+    display: block;
+}
+
+/* play badge */
+.video-playbadge {
+    position: absolute;
+    inset: auto;
+    width: 56px;
+    height: 56px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    color: #fff;
+    background: rgba(0,0,0,0.55);
+    border: 1px solid rgba(255,255,255,0.22);
+    box-shadow: 0 12px 26px rgba(0,0,0,0.35);
+    transform: translateY(2px);
+    transition: transform 140ms ease, background 140ms ease;
+}
+
+.video-card:hover .video-playbadge {
+    transform: translateY(0);
+    background: rgba(0,0,0,0.65);
+}
+
+/* hover preview layer (optional) */
+.video-hoverlayer {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 160ms ease;
+    pointer-events: none;
+}
+
+.video-hoverlayer.is-on {
+    opacity: 1;
+}
+
+.video-hoverlayer iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* empty tile */
+.video-thumbwrap--empty {
+    border: 1px dashed rgba(0,0,0,0.18);
+    background: linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.05));
+}
+
+/* =========================
+   Modal player (16:9)
+========================= */
+.video-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    display: none;
+}
+
+.video-modal.is-open {
+    display: block;
+}
+
+.video-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(6px);
+}
+
+.video-modal__panel {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(1000px, 92vw);
+    transform: translate(-50%, -50%);
+    background: rgba(15, 15, 17, 0.96);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    padding: 14px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+}
+
+.video-modal__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.10);
+    color: #fff;
+    cursor: pointer;
+}
+
+.video-modal__player {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+}
+
+.video-modal__player iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+/* ============================
+   Videos: Section differentiation (world accents)
+   Paste at BOTTOM of main.css
+============================ */
+
+/* Give each world its own "panel" feel */
+.video-section {
+    position: relative;
+    padding: 56px 0;
+    margin: 0;
+}
+
+/* soft tinted backdrop + a top accent line */
+.video-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(1200px 220px at 50% 0%,
+        color-mix(in srgb, var(--accent, #6b5bd8) 18%, transparent),
+        transparent 70%),
+        linear-gradient(
+            to bottom,
+            color-mix(in srgb, var(--accent, #6b5bd8) 10%, transparent),
+            transparent 55%
+        );
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+.video-section::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(980px, calc(100% - 48px));
+    height: 1px;
+    background: color-mix(in srgb, var(--accent, #6b5bd8) 45%, rgba(0,0,0,0.08));
+    opacity: 0.75;
+    pointer-events: none;
+}
+
+/* Make the underline under the world title use the accent */
+.video-section__title::after,
+.world-title::after {
+    background: var(--accent, #6b5bd8);
+}
+
+/* Give cards a tiny accent hint on hover */
+.video-card {
+    border: 1px solid rgba(0,0,0,0.06);
+}
+.video-card:hover {
+    border-color: color-mix(in srgb, var(--accent, #6b5bd8) 22%, rgba(0,0,0,0.10));
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.10),
+        0 0 0 4px color-mix(in srgb, var(--accent, #6b5bd8) 10%, transparent);
+}
+
+/* Optional: slightly tighten empty-state cards so they don't feel huge */
+.video-card.is-empty .video-thumbwrap,
+.video-card--empty .video-thumbwrap {
+    background: rgba(0,0,0,0.04);
+}
+
+/* Empty video tile (keeps same card layout, centered placeholder text) */
+.video-tile--empty {
+    cursor: default;
+}
+
+.video-thumbwrap--empty {
+    background: #000;          /* feels consistent with the letterbox look */
+}
+
+.empty-box--thumb {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 18px;
+    color: rgba(255,255,255,0.88);
+}
+
+.empty-box--thumb .empty-title {
+    margin: 0 0 6px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.92);
+}
+
+.empty-box--thumb .empty-sub {
+    margin: 0;
+    color: rgba(255,255,255,0.72);
 }

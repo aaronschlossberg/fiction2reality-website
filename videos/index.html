@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Videos — Fiction2Reality (F2R)</title>
+    <meta name="description" content="Watch Fiction2Reality (F2R) videos, organized by world. The Backrooms and liminal spaces, Hogwarts, and more as the archive grows."/>
+
+    <link rel="icon" type="image/png" href="/assets/img/F2R_logo_Ace.png">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <script defer src="/assets/js/main.js"></script>
+
+    <link rel="canonical" href="https://www.fiction2reality.com/videos/">
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <!-- Top banner -->
+    <header class="page-hero page-hero--videos">
+        <div class="container">
+            <p class="kicker kicker--light">F2R / VIDEOS</p>
+            <h1 class="page-title">Videos</h1>
+            <p class="page-subtitle">
+                An organized archive of our releases; grouped by world, as the catalog expands.
+            </p>
+        </div>
+    </header>
+
+    <main class="page-main">
+        <section class="info info--tight">
+            <div class="container">
+                <h2 class="section-title">Browse by World</h2>
+                <p class="section-sub">
+                    Each card is an embedded video with a short description for context. More worlds (and videos) will be added over time.
+                </p>
+                <p class="section-sub">
+                    [add a World filter/search here?]
+                </p>
+            </div>
+        </section>
+
+        <div id="videos-root"></div>
+    </main>
+
+    <!-- Video modal -->
+    <div class="video-modal" id="video-modal" aria-hidden="true">
+        <div class="video-modal__backdrop" data-close></div>
+        <div class="video-modal__panel" role="dialog" aria-modal="true" aria-label="Video player">
+            <button class="video-modal__close" type="button" data-close aria-label="Close">✕</button>
+            <div class="video-modal__player" id="video-modal-player"></div>
+        </div>
+    </div>
+
+    <script defer src="/assets/js/videos-page.js"></script>
+
+    <div id="footer-placeholder"></div>
+</body>
+</html>
