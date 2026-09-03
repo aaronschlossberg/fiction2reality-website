@@ -1,0 +1,65 @@
+.site-footer {
+    padding-block: 3.5rem 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: #080d0f;
+    color: #f3f0e8;
+    text-align: center;
+}
+
+.site-footer h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); }
+
+.site-footer__intro {
+    max-width: 38rem;
+    margin: 0 auto 1.25rem;
+    color: #bdc8c5;
+}
+
+.site-footer .button { margin-bottom: 1.5rem; }
+
+.footer-socials {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0 auto 1.75rem;
+}
+
+.social-icon {
+    display: grid;
+    width: 2.7rem;
+    height: 2.7rem;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.social-icon:hover { background: rgba(255, 255, 255, 0.13); }
+
+.social-icon img {
+    width: 1.45rem;
+    height: 1.45rem;
+}
+
+.footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.footer-nav a,
+.site-credit a { color: #d8dfdd; }
+
+.site-footer__legal,
+.site-credit,
+.rights-note {
+    color: #9eaaa7;
+    font-size: 0.85rem;
+}
+
+.rights-note {
+    max-width: 46rem;
+    margin: 1rem auto 0;
+}

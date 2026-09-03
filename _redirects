@@ -1,5 +1,42 @@
 # Legacy .html cleanup
-<!-- /___.html                           /___ 301 -->
+# /___.html                           /___ 301
+/site-map.html                         /site-map/ 301
+
+# Reorganized image paths
+/assets/img/optimized/favicon-48-v1.png /assets/img/branding/favicon-48.png 301
+/assets/img/optimized/favicon-48-v2.png /assets/img/branding/favicon-48.png 301
+/assets/img/optimized/f2r-logo-nav-v1.webp /assets/img/branding/f2r-logo-nav.webp 301
+/assets/img/optimized/f2r-logo-nav-v2.webp /assets/img/branding/f2r-logo-nav.webp 301
+/assets/img/optimized/f2r-logo-hero-288-v1.webp /assets/img/branding/f2r-logo-hero-288.webp 301
+/assets/img/optimized/f2r-logo-hero-288-v2.webp /assets/img/branding/f2r-logo-hero-288.webp 301
+/assets/img/optimized/f2r-logo-hero-576-v1.webp /assets/img/branding/f2r-logo-hero-576.webp 301
+/assets/img/optimized/f2r-logo-hero-576-v2.webp /assets/img/branding/f2r-logo-hero-576.webp 301
+/assets/img/og-fiction2reality.png /assets/img/branding/og-fiction2reality.png 301
+
+/assets/img/optimized/peet-v1.webp /assets/img/homepage/peet.webp 301
+/assets/img/optimized/bed-on-roses-480-v1.webp /assets/img/homepage/bed-on-roses-480.webp 301
+/assets/img/optimized/bed-on-roses-960-v1.webp /assets/img/homepage/bed-on-roses-960.webp 301
+/assets/img/optimized/video-2-draft-v1.webp /assets/img/homepage/video-2-draft.webp 301
+/assets/img/optimized/bloomfield-pool-v1.webp /assets/img/homepage/bloomfield-pool.webp 301
+/assets/img/optimized/blue-fish-floatie-v1.webp /assets/img/homepage/blue-fish-floatie.webp 301
+/assets/img/optimized/bellyflopper-v1.webp /assets/img/homepage/bellyflopper.webp 301
+
+/assets/img/optimized/3d-modeling-v1.webp /assets/img/technical_icons/3d-modeling.webp 301
+/assets/img/optimized/virtual-3d-rendering-v1.webp /assets/img/technical_icons/virtual-3d-rendering.webp 301
+/assets/img/optimized/conceptual-blueprints-v1.webp /assets/img/technical_icons/conceptual-blueprints.webp 301
+/assets/img/optimized/data-translation-v1.webp /assets/img/technical_icons/data-translation.webp 301
+/assets/img/optimized/creative-engineering-v1.webp /assets/img/technical_icons/creative-engineering.webp 301
+/assets/img/optimized/collective-dreaming-v1.webp /assets/img/technical_icons/collective-dreaming.webp 301
+
+/assets/img/optimized/gmail-v1.webp /assets/img/social_media_logos/gmail.webp 301
+/assets/img/optimized/youtube-v1.webp /assets/img/social_media_logos/youtube.webp 301
+/assets/img/optimized/instagram-v1.webp /assets/img/social_media_logos/instagram.webp 301
+/assets/img/optimized/facebook-v1.webp /assets/img/social_media_logos/facebook.webp 301
+/assets/img/optimized/x-v1.webp /assets/img/social_media_logos/twitter-x.webp 301
+/assets/img/optimized/linkedin-v1.webp /assets/img/social_media_logos/linkedin.webp 301
+/assets/img/optimized/tiktok-v1.webp /assets/img/social_media_logos/tiktok.webp 301
+/assets/img/optimized/substack-v1.webp /assets/img/social_media_logos/substack.webp 301
+/assets/img/optimized/pinterest-v1.webp /assets/img/social_media_logos/pinterest.webp 301
 
 # Netlify subdomain → canonical custom domain
 https://fiction2reality.netlify.app/* https://www.fiction2reality.com/:splat 301!

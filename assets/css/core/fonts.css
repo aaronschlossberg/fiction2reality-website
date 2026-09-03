@@ -1,0 +1,15 @@
+@font-face {
+    font-family: "Lora";
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+    src: url("/assets/fonts/lora-latin-normal-400-700-v1.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Lora";
+    font-style: italic;
+    font-weight: 400 700;
+    font-display: swap;
+    src: url("/assets/fonts/lora-latin-italic-400-700-v1.woff2") format("woff2");
+}

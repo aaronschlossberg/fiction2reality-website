@@ -1,0 +1,20 @@
+{
+    "name": "Fiction2Reality",
+    "alternateName": "Fiction2Reality (F2R)",
+    "tagline": "Imagined worlds, made real.",
+    "description": "Fiction2Reality is a long-term creative venture turning fictional and liminal spaces into digital experiences today and real, explorable places in the future.",
+    "baseUrl": "https://www.fiction2reality.com",
+    "language": "en-US",
+    "locale": "en_US",
+    "email": "fiction2reality.innovators@gmail.com",
+    "logo": "/assets/img/branding/f2r-logo-nav.webp",
+    "defaultOgImage": "/assets/img/branding/og-fiction2reality.png",
+    "defaultOgImageAlt": "Fiction2Reality — turning fictional worlds into real, explorable places",
+    "founder": {
+        "name": "Aaron Schlossberg",
+        "url": "https://www.aaronschlossberg.com/"
+    },
+    "verification": {
+        "pinterest": "eabdbf852efa41636a739a223d524d2f"
+    }
+}

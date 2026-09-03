@@ -1,0 +1,19 @@
+.breadcrumbs { margin-bottom: 1.5rem; }
+
+.breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    list-style: none;
+}
+
+.breadcrumbs li:not(:last-child)::after {
+    margin-left: 0.4rem;
+    color: var(--color-border-strong);
+    content: "/";
+}
+
+.breadcrumbs a { color: inherit; }

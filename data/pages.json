@@ -1,0 +1,81 @@
+{
+    "pages": [
+        {
+            "path": "/",
+            "file": "index.html",
+            "name": "Home",
+            "title": "Fiction2Reality (F2R) — Turning Fictional Worlds into Reality",
+            "description": "Explore Fiction2Reality, a long-term creative venture using 3D environments, films, and world-building to work toward real, explorable fictional spaces.",
+            "schemaType": "WebPage",
+            "section": "Explore F2R",
+            "summary": "The vision, origins, creative work, and long-term stages of Fiction2Reality."
+        },
+        {
+            "path": "/videos/",
+            "file": "videos/index.html",
+            "name": "Videos",
+            "title": "Videos — Fiction2Reality (F2R)",
+            "description": "Watch Fiction2Reality videos and short films, organized by fictional world and creative project.",
+            "schemaType": "CollectionPage",
+            "section": "Explore F2R",
+            "summary": "An organized archive of Fiction2Reality releases and works in progress.",
+            "breadcrumbs": [
+                { "name": "Home", "path": "/" },
+                { "name": "Videos", "path": "/videos/" }
+            ]
+        },
+        {
+            "path": "/faq/",
+            "file": "faq/index.html",
+            "name": "FAQ",
+            "title": "FAQ — Fiction2Reality (F2R)",
+            "description": "Answers about Fiction2Reality's vision, stages, intellectual-property considerations, timeline, funding, and ways to get involved.",
+            "schemaType": "FAQPage",
+            "section": "About F2R",
+            "summary": "Answers about the vision, roadmap, rights considerations, and participation.",
+            "breadcrumbs": [
+                { "name": "Home", "path": "/" },
+                { "name": "FAQ", "path": "/faq/" }
+            ]
+        },
+        {
+            "path": "/contact/",
+            "file": "contact/index.html",
+            "name": "Contact",
+            "title": "Contact — Fiction2Reality (F2R)",
+            "description": "Contact Fiction2Reality, discuss collaboration, or follow the project across its official channels.",
+            "schemaType": "ContactPage",
+            "section": "Connect",
+            "summary": "Contact Fiction2Reality or follow the project on its official channels.",
+            "breadcrumbs": [
+                { "name": "Home", "path": "/" },
+                { "name": "Contact", "path": "/contact/" }
+            ]
+        },
+        {
+            "path": "/site-map/",
+            "file": "site-map/index.html",
+            "name": "Sitemap",
+            "title": "Sitemap — Fiction2Reality (F2R)",
+            "description": "A human-friendly directory of the public pages on the Fiction2Reality website.",
+            "schemaType": "CollectionPage",
+            "section": "Connect",
+            "summary": "A complete, human-friendly directory of Fiction2Reality's public pages.",
+            "breadcrumbs": [
+                { "name": "Home", "path": "/" },
+                { "name": "Sitemap", "path": "/site-map/" }
+            ]
+        },
+        {
+            "path": "/404.html",
+            "file": "404.html",
+            "name": "Page not found",
+            "title": "Page Not Found — Fiction2Reality (F2R)",
+            "description": "The requested page could not be found on the Fiction2Reality website.",
+            "schemaType": "WebPage",
+            "robots": "noindex, follow",
+            "includeInSitemap": false,
+            "includeInHtmlSitemap": false
+        }
+    ]
+}

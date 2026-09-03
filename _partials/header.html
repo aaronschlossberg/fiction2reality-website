@@ -1,20 +1,27 @@
-<nav class="site-nav" id="site-nav">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<nav class="site-nav" id="site-nav" aria-label="Primary navigation">
     <a class="nav-brand" href="/">
-        <img src="/assets/img/F2R_logo_Ace.png" alt="F2R logo"/>
+        <img src="/assets/img/branding/f2r-logo-nav.webp" width="96" height="96" decoding="async" alt="">
         <span>Fiction2Reality</span>
     </a>
 
-    <ul class="nav-links">
+    <ul class="nav-links" id="primary-navigation">
         <li><a href="/">Home</a></li>
         <li><a href="/videos/">Videos</a></li>
         <li><a href="/faq/">FAQ</a></li>
         <li><a href="/contact/">Contact</a></li>
     </ul>
 
-    <button class="nav-toggle" aria-label="Open menu">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
+    <div class="nav-actions">
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Theme: follow device setting" title="Change color theme">
+            <svg class="theme-icon theme-icon--system" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"></rect><path d="M8 20h8M12 16v4"></path></svg>
+            <svg class="theme-icon theme-icon--light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+            <svg class="theme-icon theme-icon--dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"></path></svg>
+            <span class="theme-label" data-theme-label>Auto</span>
+        </button>
 
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-controls="primary-navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+        </button>
+    </div>
 </nav>

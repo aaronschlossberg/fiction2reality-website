@@ -1,0 +1,20 @@
+.contact-layout {
+    display: grid;
+    grid-template-columns: minmax(16rem, 0.75fr) minmax(0, 1.25fr);
+    gap: 1.25rem;
+    align-items: start;
+}
+
+.contact-primary,
+.contact-channels { padding: clamp(1.5rem, 4vw, 2.25rem); }
+
+.contact-primary p,
+.contact-channels > p { color: var(--color-text-muted); }
+.contact-primary .button { margin-top: 1.25rem; }
+
+.contact-channels h2 { font-size: clamp(1.45rem, 3vw, 2rem); }
+.contact-channels > p { margin-bottom: 1.25rem; }
+
+@media (max-width: 50rem) {
+    .contact-layout { grid-template-columns: 1fr; }
+}

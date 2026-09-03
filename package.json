@@ -1,0 +1,13 @@
+{
+  "name": "fiction2reality",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-site.mjs"
+  },
+  "devDependencies": {
+    "cheerio": "1.2.0"
+  },
+  "engines": {
+    "node": ">=20.18.1"
+  }
+}

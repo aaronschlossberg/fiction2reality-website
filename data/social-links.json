@@ -1,0 +1,76 @@
+{
+    "links": [
+        {
+            "id": "email",
+            "name": "Email",
+            "label": "fiction2reality.innovators@gmail.com",
+            "url": "mailto:fiction2reality.innovators@gmail.com?subject=Fiction2Reality%20inquiry",
+            "icon": "/assets/img/social_media_logos/gmail.webp",
+            "sameAs": false
+        },
+        {
+            "id": "youtube",
+            "name": "YouTube",
+            "label": "@Fiction.2.Reality",
+            "url": "https://www.youtube.com/@Fiction.2.Reality/videos/",
+            "icon": "/assets/img/social_media_logos/youtube.webp",
+            "sameAs": true
+        },
+        {
+            "id": "instagram",
+            "name": "Instagram",
+            "label": "@fiction2reality.f2r",
+            "url": "https://www.instagram.com/fiction2reality.f2r/",
+            "icon": "/assets/img/social_media_logos/instagram.webp",
+            "sameAs": true
+        },
+        {
+            "id": "facebook",
+            "name": "Facebook community",
+            "label": "Fiction2Reality (F2R)",
+            "url": "https://www.facebook.com/groups/1154558870223746",
+            "icon": "/assets/img/social_media_logos/facebook.webp",
+            "sameAs": false
+        },
+        {
+            "id": "x",
+            "name": "X",
+            "label": "@f2r_innovators",
+            "url": "https://x.com/f2r_innovators/",
+            "icon": "/assets/img/social_media_logos/twitter-x.webp",
+            "sameAs": true
+        },
+        {
+            "id": "linkedin",
+            "name": "LinkedIn",
+            "label": "Fiction2Reality",
+            "url": "https://www.linkedin.com/in/fiction2reality/",
+            "icon": "/assets/img/social_media_logos/linkedin.webp",
+            "sameAs": true
+        },
+        {
+            "id": "tiktok",
+            "name": "TikTok",
+            "label": "@fiction2reality.f2r",
+            "url": "https://www.tiktok.com/@fiction2reality.f2r/",
+            "icon": "/assets/img/social_media_logos/tiktok.webp",
+            "sameAs": true
+        },
+        {
+            "id": "substack",
+            "name": "Substack",
+            "label": "Fiction2Reality",
+            "url": "https://fiction2reality.substack.com/",
+            "icon": "/assets/img/social_media_logos/substack.webp",
+            "sameAs": true
+        },
+        {
+            "id": "pinterest",
+            "name": "Pinterest",
+            "label": "Fiction2Reality",
+            "url": "https://www.pinterest.com/fiction2reality/",
+            "icon": "/assets/img/social_media_logos/pinterest.webp",
+            "sameAs": true
+        }
+    ]
+}

@@ -1,66 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-US">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Videos — Fiction2Reality (F2R)</title>
-    <meta name="description" content="Fiction2Reality: Turning fictional spaces into real places."/>
-
-    <link rel="icon" type="image/png" href="/assets/img/F2R_logo_Ace.png">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <script defer src="/assets/js/main.js"></script>
-
+    <meta name="description" content="Watch Fiction2Reality videos and short films, organized by fictional world and creative project.">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#0d1416">
     <link rel="canonical" href="https://www.fiction2reality.com/videos/">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/img/branding/favicon-48.png">
+    <link rel="preload" href="/assets/fonts/lora-latin-normal-400-700-v1.woff2" as="font" type="font/woff2" crossorigin>
+    <script src="/assets/js/theme-init.js"></script>
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <script type="module" src="/assets/js/main.js"></script>
+    <script type="module" src="/assets/js/pages/videos.js"></script>
 </head>
-
-<body>
+<body data-page-path="/videos/">
     <div id="header-placeholder"></div>
 
-    <!-- Top banner -->
-    <header class="page-hero page-hero--videos">
+    <main id="main-content">
+        <header class="page-hero">
         <div class="container">
-            <p class="kicker kicker--light">F2R / VIDEOS</p>
-            <h1 class="page-title">Videos</h1>
-            <p class="page-subtitle">
-                An organized archive of our releases; grouped by world, as the catalog expands. <br><br>
-                Watch Fiction2Reality videos, organized by world. The Backrooms and liminal spaces, Hogwarts, and more to come.
-            </p>
+            <p class="eyebrow">The moving archive</p>
+            <h1>Videos</h1>
+            <p class="page-hero__summary">Fiction2Reality releases, experiments, and short films—organized by the worlds they explore.</p>
         </div>
-    </header>
+        </header>
 
-    <main class="page-main">
-        <section class="info info--tight">
-            <div class="container">
-                <h2 class="section-title">Browse by World</h2>
-                <p class="section-sub">
-                    Each card is an embedded video with a short description for context. More worlds (and videos) will be added over time.
-                </p>
-                <p class="section-sub">
-                    [add a World filter/search here?]
-                </p>
-            </div>
+        <section class="section--tight video-intro">
+        <div class="container">
+            <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <ol>
+                <li><a href="/">Home</a></li>
+                <li aria-current="page">Videos</li>
+            </ol>
+            </nav>
+            <h2>Browse the archive</h2>
+            <p>Each release includes a short description and opens in an on-page player, with a direct YouTube link available as well.</p>
+        </div>
         </section>
 
-        <div id="videos-root"></div>
+        <div id="videos-root">
+        <noscript><p class="container empty-state">JavaScript is not required on the deployed site, but this source preview must be built before the video catalog appears.</p></noscript>
+        </div>
     </main>
 
-    <!-- Video modal -->
     <div class="video-modal" id="video-modal" aria-hidden="true">
         <div class="video-modal__backdrop" data-close></div>
         <div class="video-modal__panel" role="dialog" aria-modal="true" aria-label="Video player">
-            <button class="video-modal__close" type="button" data-close aria-label="Close">✕</button>
-            <div class="video-modal__player" id="video-modal-player"></div>
+        <button class="video-modal__close" type="button" data-close aria-label="Close video player">✕</button>
+        <div class="video-modal__player" id="video-modal-player"></div>
         </div>
     </div>
-
-    <script defer src="/assets/js/videos-page.js"></script>
 
     <div id="footer-placeholder"></div>
 </body>

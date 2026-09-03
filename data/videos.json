@@ -1,0 +1,26 @@
+{
+    "worlds": [
+        {
+            "id": "backrooms-liminal",
+            "title": "Backrooms & Liminal",
+            "description": "The Backrooms and other liminal, surreal spaces, found-footage storytelling, and environments that feel too familiar to be safe.",
+            "accent": "#d6a84a",
+            "videos": [
+                {
+                    "id": "lobby-lingerer-v1",
+                    "youtubeId": "6y0-W0RH0ak",
+                    "title": "Backrooms: Lobby Lingerer (V1)",
+                    "description": "After noclipping out of reality, Adam wanders the Backrooms Lobby... but something is different. Version 1.",
+                    "tags": ["Backrooms", "liminal spaces", "3D animation", "found footage"]
+                },
+                {
+                    "id": "lobby-lingerer-v2",
+                    "youtubeId": "y6Dq2nGNVDY",
+                    "title": "Backrooms: Lobby Lingerer (V2)",
+                    "description": "After noclipping out of reality, Adam wanders the Backrooms Lobby... but something is different. Version 2.",
+                    "tags": ["Backrooms", "liminal spaces", "3D animation", "found footage"]
+                }
+            ]
+        }
+    ]
+}
