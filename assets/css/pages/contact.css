@@ -1,20 +1,35 @@
 .contact-layout {
     display: grid;
-    grid-template-columns: minmax(16rem, 0.75fr) minmax(0, 1.25fr);
+    width: min(100%, 64rem);
     gap: 1.25rem;
-    align-items: start;
+    margin-inline: auto;
 }
 
 .contact-primary,
-.contact-channels { padding: clamp(1.5rem, 4vw, 2.25rem); }
+.contact-channels {
+    padding: clamp(1.5rem, 4vw, 2.25rem);
+    text-align: center;
+}
 
-.contact-primary p,
-.contact-channels > p { color: var(--color-text-muted); }
-.contact-primary .button { margin-top: 1.25rem; }
+.contact-primary > p:not(.eyebrow),
+.contact-channels > p {
+    width: min(100%, 58rem);
+    margin-inline: auto;
+    color: var(--color-text-muted);
+}
 
-.contact-channels h2 { font-size: clamp(1.45rem, 3vw, 2rem); }
-.contact-channels > p { margin-bottom: 1.25rem; }
+.contact-primary .button {
+    margin-top: 1.25rem;
+}
 
-@media (max-width: 50rem) {
-    .contact-layout { grid-template-columns: 1fr; }
+.contact-channels h2 {
+    font-size: clamp(1.45rem, 3vw, 2rem);
+}
+
+.contact-channels > p {
+    margin-bottom: 1.5rem;
+}
+
+.contact-channels .social-card {
+    text-align: left;
 }

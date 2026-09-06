@@ -25,6 +25,26 @@
             ]
         },
         {
+            "path": "/partners/",
+            "file": "partners/index.html",
+            "name": "Partners",
+            "title": "Partners — Fiction2Reality (F2R)",
+            "description": "Meet the independent creators, communities, and organizations partnering with Fiction2Reality.",
+            "schemaType": "CollectionPage",
+            "section": "Connect",
+            "summary": "Independent creators, communities, and organizations working alongside Fiction2Reality.",
+            "breadcrumbs": [
+                {
+                    "name": "Home",
+                    "path": "/"
+                },
+                {
+                    "name": "Partners",
+                    "path": "/partners/"
+                }
+            ]
+        },
+        {
             "path": "/faq/",
             "file": "faq/index.html",
             "name": "FAQ",
@@ -64,6 +84,20 @@
             "breadcrumbs": [
                 { "name": "Home", "path": "/" },
                 { "name": "Sitemap", "path": "/site-map/" }
+            ]
+        },
+        {
+            "path": "/legal/",
+            "file": "legal/index.html",
+            "name": "Legal & attribution",
+            "title": "Legal & Attribution — Fiction2Reality (F2R)",
+            "description": "Read Fiction2Reality's independence, rights, trademark, licensing, and attribution information.",
+            "schemaType": "WebPage",
+            "section": "About Fiction2Reality",
+            "summary": "Independence, rights, licensing, and attribution information for Fiction2Reality.",
+            "breadcrumbs": [
+                { "name": "Home", "path": "/" },
+                { "name": "Legal & attribution", "path": "/legal/" }
             ]
         },
         {

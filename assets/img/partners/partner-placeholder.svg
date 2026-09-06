@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title description">
+
+    <title id="title">Partner image placeholder</title>
+
+    <desc id="description">
+        A temporary Fiction2Reality partner graphic to replace with approved
+        partner artwork.
+    </desc>
+
+    <defs>
+        <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#0d1416"></stop>
+            <stop offset="1" stop-color="#20363a"></stop>
+        </linearGradient>
+
+        <radialGradient id="glow" cx="50%" cy="40%" r="62%">
+            <stop offset="0" stop-color="#edb253" stop-opacity=".34"></stop>
+            <stop offset="1" stop-color="#edb253" stop-opacity="0"></stop>
+        </radialGradient>
+    </defs>
+
+    <rect width="1200" height="675" rx="32" fill="url(#background)"></rect>
+
+    <rect width="1200" height="675" rx="32" fill="url(#glow)"></rect>
+
+    <g fill="none" stroke="#70cbd3" stroke-width="5" opacity=".72">
+
+        <path d="M372 337c0-72 58-130 130-130h84v74h-84a56 56 0 0 0 0 112h84v74h-84c-72 0-130-58-130-130Z"></path>
+
+        <path d="M828 337c0 72-58 130-130 130h-84v-74h84a56 56 0 0 0 0-112h-84v-74h84c72 0 130 58 130 130Z"></path>
+
+        <path d="M514 337h172" stroke="#edb253" stroke-width="12" stroke-linecap="round"></path>
+    </g>
+
+    <text x="600" y="548" fill="#f7f4eb" font-family="Georgia, serif" font-size="42" font-weight="700" text-anchor="middle">
+
+        Partner image coming soon
+    </text>
+</svg>

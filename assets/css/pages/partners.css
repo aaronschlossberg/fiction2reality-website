@@ -1,0 +1,192 @@
+.featured-partners-section {
+    border-top: 1px solid var(--color-border);
+    background:
+        radial-gradient(
+            circle at 82% 18%,
+            rgba(237, 178, 83, 0.1),
+            transparent 24rem
+        ),
+        var(--color-surface);
+}
+
+/*
+ * Allow the homepage heading and subtitle to use the full width of the section's container.
+ */
+.featured-partners-section .section-heading {
+    width: 100%;
+    max-width: none;
+}
+
+.featured-partners-section .section-heading > * {
+    width: 100%;
+    max-width: none;
+    text-align: center;
+}
+
+/*
+ * Allow the Partners-page heading area to use the full width of the page-content container.
+ */
+.partner-directory {
+    width: 100%;
+    max-width: none;
+    margin-inline: auto;
+}
+
+.partner-directory__heading {
+    width: 100%;
+    max-width: none;
+}
+
+.partner-directory__heading > * {
+    width: 100%;
+    max-width: none;
+    text-align: center;
+}
+
+/*
+ * Partner cards use two columns when space permits. Wrapped or incomplete rows remain centered.
+ */
+.partner-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 1.25rem;
+}
+
+.partner-card {
+    display: flex;
+    flex: 0 1 calc((100% - 1.25rem) / 2);
+    min-width: 0;
+    overflow: hidden;
+    flex-direction: column;
+    transition:
+        transform var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition);
+}
+
+.partner-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-secondary);
+    box-shadow: var(--shadow-md);
+}
+
+.partner-card__media {
+    display: grid;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    place-items: center;
+    border-bottom: 1px solid var(--color-border);
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            var(--color-accent-soft),
+            transparent 70%
+        ),
+        var(--color-surface-soft);
+}
+
+.partner-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform var(--transition);
+}
+
+.partner-card__media:hover img {
+    transform: scale(1.025);
+}
+
+/*
+ * Center everything within the text portion of every partner card.
+ */
+.partner-card__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: clamp(1.35rem, 3vw, 1.8rem);
+    text-align: center;
+}
+
+.partner-card__body .eyebrow,
+.partner-card__body h3,
+.partner-card__description {
+    width: 100%;
+    max-width: none;
+    margin-inline: auto;
+    text-align: center;
+}
+
+.partner-card__body h3 {
+    font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+    text-wrap: balance;
+}
+
+.partner-card__description {
+    color: var(--color-text-muted);
+    text-wrap: pretty;
+}
+
+/*
+ * Buttons sit beside one another when they fit. If they wrap, every row remains centered.
+ */
+.partner-card__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 0.7rem;
+    margin-top: auto;
+    margin-inline: auto;
+    padding-top: 1.35rem;
+    text-align: center;
+}
+
+.partner-card__links .button {
+    justify-content: center;
+    text-align: center;
+    font-size: var(--text-size-small);
+}
+
+.featured-partners__action {
+    width: 100%;
+    margin-top: 1.75rem;
+    text-align: center;
+}
+
+.partner-independence {
+    width: 100%;
+    max-width: none;
+    margin: 2rem auto 0;
+    padding: 1rem 1.15rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-soft);
+    color: var(--color-text-muted);
+    font-size: var(--text-size-small);
+    text-align: center;
+    text-wrap: pretty;
+}
+
+@media (max-width: 48rem) {
+    .partner-card {
+        flex-basis: 100%;
+    }
+}
+
+@media (max-width: 32rem) {
+    /*
+     * On narrow screens, stack the buttons and keep each one centered.
+     */
+    .partner-card__links {
+        flex-direction: column;
+    }
+
+    .partner-card__links .button {
+        width: min(100%, 28rem);
+    }
+}

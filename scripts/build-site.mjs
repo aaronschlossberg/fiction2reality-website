@@ -41,6 +41,7 @@ const EXCLUDED_ROOT_ENTRIES = new Set([
 const JSON_FILES = {
     site: path.join(SITE_ROOT, "data", "site.json"),
     pages: path.join(SITE_ROOT, "data", "pages.json"),
+    partners: path.join(SITE_ROOT, "data", "partners.json"),
     socials: path.join(SITE_ROOT, "data", "social-links.json"),
     videos: path.join(SITE_ROOT, "data", "videos.json")
 };
@@ -106,7 +107,17 @@ async function sourceHtmlFiles(directory = SITE_ROOT) {
     const files = [];
 
     for (const entry of await readdir(directory, { withFileTypes: true })) {
-        if (entry.isDirectory() && [".git", "_partials", "_site", "node_modules", "__MACOSX"].includes(entry.name)) {
+        if (
+            entry.isDirectory()
+            && [
+                ".git",
+                "_partials",
+                "_site",
+                "_templates",
+                "node_modules",
+                "__MACOSX"
+            ].includes(entry.name)
+        ) {
             continue;
         }
 
@@ -142,7 +153,7 @@ function assertPlainText(value, label) {
     }
 }
 
-function validateData(site, pages, socials, videos) {
+function validateData(site, pages, socials, videos, partners) {
     assertPlainText(site.name, "site.name");
     assertPlainText(site.description, "site.description");
 
@@ -177,6 +188,75 @@ function validateData(site, pages, socials, videos) {
         socialIds.add(social.id);
 
         if (!social.url.startsWith("mailto:")) new URL(social.url);
+    }
+
+    const partnerIds = new Set();
+
+    for (const partner of partners) {
+        assertPlainText(partner.id, "partner id");
+        assertPlainText(partner.name, `${partner.id} name`);
+        assertPlainText(
+            partner.relationship,
+            `${partner.id} relationship`
+        );
+        assertPlainText(
+            partner.description,
+            `${partner.id} description`
+        );
+        assertPlainText(partner.image, `${partner.id} image`);
+        assertPlainText(partner.imageAlt, `${partner.id} image alt`);
+
+        if (partner.featuredDescription) {
+            assertPlainText(
+                partner.featuredDescription,
+                `${partner.id} featured description`
+            );
+        }
+
+        if (partnerIds.has(partner.id)) {
+            throw new Error(`Duplicate partner id: ${partner.id}`);
+        }
+
+        if (!partner.image.startsWith("/assets/img/")) {
+            throw new Error(
+                `${partner.id} image must be a local file beneath /assets/img/.`
+            );
+        }
+
+        if (!Array.isArray(partner.links) || !partner.links.length) {
+            throw new Error(`${partner.id} needs at least one link.`);
+        }
+
+        if (
+            partner.featured !== undefined
+            && typeof partner.featured !== "boolean"
+        ) {
+            throw new Error(
+                `${partner.id} featured must be true or false.`
+            );
+        }
+
+        partnerIds.add(partner.id);
+
+        for (const link of partner.links) {
+            assertPlainText(
+                link.label,
+                `${partner.id} link label`
+            );
+
+            assertPlainText(
+                link.url,
+                `${partner.id} link URL`
+            );
+
+            const url = new URL(link.url);
+
+            if (!["http:", "https:"].includes(url.protocol)) {
+                throw new Error(
+                    `${partner.id} links must use HTTP or HTTPS.`
+                );
+            }
+        }
     }
 
     const worldIds = new Set();
@@ -296,6 +376,117 @@ function renderSocialLinks($, socials) {
     $("[data-social-icons]").html(socials.map((social) => socialAnchor(social, true)).join(""));
 }
 
+function partnerCard(partner, { compact = false } = {}) {
+    const primaryLink = partner.links[0];
+
+    const description = compact
+        ? partner.featuredDescription || partner.description
+        : partner.description;
+
+    const cardId = compact
+        ? `featured-${partner.id}`
+        : partner.id;
+
+    const sitemapAttribute = compact
+        ? ""
+        : " data-sitemap-image";
+
+    const links = partner.links.map((link, index) => `
+        <a
+            class="button${index ? " button--secondary" : ""}"
+            href="${escapeHtml(link.url)}"
+            target="_blank"
+            rel="noopener noreferrer">
+
+            ${escapeHtml(link.label)}
+            <span aria-hidden="true">↗</span>
+
+            <span class="visually-hidden">
+                (opens in a new tab)
+            </span>
+        </a>
+    `).join("");
+
+    return `
+        <article
+            class="card partner-card"
+            id="${escapeHtml(cardId)}">
+
+            <a
+                class="partner-card__media"
+                href="${escapeHtml(primaryLink.url)}"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit ${escapeHtml(partner.name)} (opens in a new tab)">
+
+                <img
+                    src="${escapeHtml(partner.image)}"
+                    width="1200"
+                    height="675"
+                    loading="lazy"
+                    decoding="async"
+                    alt="${escapeHtml(partner.imageAlt)}"
+                    ${sitemapAttribute}>
+            </a>
+
+            <div class="partner-card__body">
+                <p class="eyebrow">
+                    ${escapeHtml(partner.relationship)}
+                </p>
+
+                <h3>${escapeHtml(partner.name)}</h3>
+
+                <p class="partner-card__description">
+                    ${escapeHtml(description)}
+                </p>
+
+                <div class="partner-card__links">
+                    ${links}
+                </div>
+            </div>
+        </article>
+    `;
+}
+
+function renderPartners($, partners) {
+    const directory = $("[data-partner-grid]");
+
+    if (directory.length) {
+        const cards = partners
+            .map((partner) => partnerCard(partner))
+            .join("");
+
+        directory.html(
+            cards
+            || '<p class="empty-state">Partnership announcements are coming soon.</p>'
+        );
+    }
+
+    const featuredDirectory = $(
+        "[data-featured-partner-grid]"
+    );
+
+    if (featuredDirectory.length) {
+        const featured = partners.filter(
+            (partner) => partner.featured
+        );
+
+        if (featured.length) {
+            featuredDirectory.html(
+                featured
+                    .map((partner) =>
+                        partnerCard(partner, { compact: true })
+                    )
+                    .join("")
+            );
+        } else {
+            featuredDirectory
+                .closest(".featured-partners-section")
+                .remove();
+        }
+    }
+}
+
 function videoThumbnail(video) {
     return `https://i.ytimg.com/vi/${video.youtubeId}/hqdefault.jpg`;
 }
@@ -305,13 +496,34 @@ function renderVideos($, videos) {
         const cards = (world.videos || []).map((video) => {
         const searchText = compactText([
             video.title,
+            video.shortTitle,
             video.description,
+            video.longDescription,
+
             world.title,
-            ...(video.tags || [])
+            world.description,
+
+            ...(video.tags || []),
+            ...(video.notes || []),
+
+            ...(video.people || []).flatMap((person) => [
+                person.name,
+                person.role
+            ]),
+
+            video.transcript
         ].join(" ")).toLowerCase();
 
         return `
-            <article class="video-card" id="${escapeHtml(video.id)}" data-video-card data-youtube-id="${escapeHtml(video.youtubeId)}" data-search-text="${escapeHtml(searchText)}">
+            <article 
+            class="video-card"
+            id="${escapeHtml(video.id)}"
+            data-video-card
+            data-video-url="/videos/${escapeHtml(video.id)}/"
+            data-youtube-id="${escapeHtml(video.youtubeId)}"
+            data-world="${escapeHtml(world.id)}"
+            data-tags="${escapeHtml((video.tags || []).join("|"))}"
+            data-search-text="${escapeHtml(searchText)}">
             <button class="video-tile" type="button" aria-label="Play ${escapeHtml(video.title)}">
                 <span class="video-thumbwrap">
                 <img class="video-thumb" src="${videoThumbnail(video)}" width="480" height="360" loading="lazy" decoding="async" alt="Thumbnail for ${escapeHtml(video.title)}">
@@ -321,7 +533,22 @@ function renderVideos($, videos) {
             <div class="video-card__body">
                 <h3 class="video-card__title">${escapeHtml(video.title)}</h3>
                 <p class="video-card__description">${escapeHtml(video.description)}</p>
-                <a class="text-link" href="https://www.youtube.com/watch?v=${escapeHtml(video.youtubeId)}" target="_blank" rel="noopener noreferrer">Watch on YouTube <span aria-hidden="true">↗</span></a>
+                <div class="video-card__actions">
+                    <a
+                        class="button"
+                        href="/videos/${escapeHtml(video.id)}/">
+                        View Video
+                    </a>
+
+                    <a
+                        class="button button--secondary"
+                        href="https://www.youtube.com/watch?v=${escapeHtml(video.youtubeId)}"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        YouTube
+                        <span aria-hidden="true">↗</span>
+                    </a>
+                </div>
             </div>
             </article>`;
         }).join("");
@@ -340,6 +567,809 @@ function renderVideos($, videos) {
     }).join("");
 
     $("#videos-root").html(sections || '<p class="empty-state">No videos have been published yet.</p>');
+
+    const worldOptions = (videos.worlds || [])
+        .map((world) => `
+            <option value="${escapeHtml(world.id)}">
+                ${escapeHtml(world.title)}
+            </option>
+        `)
+        .join("");
+
+    $("#video-world-filter").append(worldOptions);
+
+    const tags = [
+        ...new Set(
+            (videos.worlds || []).flatMap((world) =>
+                (world.videos || []).flatMap(
+                    (video) => video.tags || []
+                )
+            )
+        )
+    ].sort((a, b) => a.localeCompare(b));
+
+    const tagOptions = tags
+        .map((tag) => `
+            <option value="${escapeHtml(tag.toLowerCase())}">
+                ${escapeHtml(tag)}
+            </option>
+        `)
+        .join("");
+
+    $("#video-tag-filter").append(tagOptions);
+}
+
+function videoDetailSchema(
+    site,
+    world,
+    video
+) {
+    const url =
+        pageUrl(
+            site,
+            `/videos/${video.id}/`
+        );
+
+    return {
+        "@context":
+            "https://schema.org",
+
+        "@graph": [
+            {
+                "@type":
+                    "VideoObject",
+
+                "@id":
+                    `${url}#video`,
+
+                name:
+                    video.title,
+
+                description:
+                    video.longDescription
+                    || video.description,
+
+                thumbnailUrl: [
+                    videoThumbnail(video)
+                ],
+
+                embedUrl:
+                    `https://www.youtube-nocookie.com/embed/${video.youtubeId}`,
+
+                contentUrl:
+                    `https://www.youtube.com/watch?v=${video.youtubeId}`,
+
+                url,
+
+                keywords:
+                    (video.tags || [])
+                    .join(", ")
+            },
+
+            {
+                "@type":
+                    "BreadcrumbList",
+
+                "@id":
+                    `${url}#breadcrumbs`,
+
+                itemListElement: [
+                    {
+                        "@type":
+                            "ListItem",
+
+                        position: 1,
+
+                        name:
+                            "Home",
+
+                        item:
+                            pageUrl(site, "/")
+                    },
+
+                    {
+                        "@type":
+                            "ListItem",
+
+                        position: 2,
+
+                        name:
+                            "Videos",
+
+                        item:
+                            pageUrl(
+                                site,
+                                "/videos/"
+                            )
+                    },
+
+                    {
+                        "@type":
+                            "ListItem",
+
+                        position: 3,
+
+                        name:
+                            world.title,
+
+                        item:
+                            pageUrl(
+                                site,
+                                `/videos/#${world.id}`
+                            )
+                    },
+
+                    {
+                        "@type":
+                            "ListItem",
+
+                        position: 4,
+
+                        name:
+                            video.title,
+
+                        item:
+                            url
+                    }
+                ]
+            }
+        ]
+    };
+}
+
+
+function videoMetadataHtml(
+    world,
+    video
+) {
+    const rows = [
+        [
+            "World",
+            world.title
+        ],
+
+        [
+            "Video",
+            video.title
+        ]
+    ];
+
+    if (video.published) {
+        rows.push([
+            "Published",
+            video.published
+        ]);
+    }
+
+    if ((video.tags || []).length) {
+        rows.push([
+            "Tags",
+            video.tags.join(", ")
+        ]);
+    }
+
+    return `
+        <h2>Details</h2>
+
+        <dl class="video-detail__meta">
+
+            ${rows.map(
+                ([label, value]) => `
+                    <div>
+                        <dt>
+                            ${escapeHtml(label)}
+                        </dt>
+
+                        <dd>
+                            ${escapeHtml(value)}
+                        </dd>
+                    </div>
+                `
+            ).join("")}
+
+        </dl>
+    `;
+}
+
+
+function renderVideoPeople(video) {
+    if (!(video.people || []).length) {
+        return "";
+    }
+
+    return `
+        <h2>Credits</h2>
+
+        <ul class="video-detail__credits">
+
+            ${video.people.map(
+                (person) => `
+                    <li>
+                        <strong>
+                            ${escapeHtml(person.name)}
+                        </strong>
+
+                        ${
+                            person.role
+                                ? ` — ${escapeHtml(person.role)}`
+                                : ""
+                        }
+                    </li>
+                `
+            ).join("")}
+
+        </ul>
+    `;
+}
+
+
+function renderVideoArticles(video) {
+    if (!(video.articles || []).length) {
+        return "";
+    }
+
+    return `
+        <h2>
+            Production & Behind the Scenes
+        </h2>
+
+        <div class="video-detail__link-list">
+
+            ${video.articles.map(
+                (article) => `
+                    <a
+                        class="surface-card"
+                        href="${escapeHtml(article.url)}"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        <strong>
+                            ${escapeHtml(article.label)}
+                        </strong>
+
+                        <span aria-hidden="true">
+                            ↗
+                        </span>
+
+                    </a>
+                `
+            ).join("")}
+
+        </div>
+    `;
+}
+
+
+function renderRelatedVideos(
+    world,
+    currentVideo
+) {
+    const related =
+        (world.videos || [])
+        .filter(
+            (video) =>
+                video.id !== currentVideo.id
+        )
+        .slice(0, 3);
+
+    if (!related.length) {
+        return "";
+    }
+
+    return `
+        <h2>Related Videos</h2>
+
+        <div class="video-detail__related">
+
+            ${related.map(
+                (video) => `
+                    <a
+                        class="surface-card"
+                        href="/videos/${escapeHtml(video.id)}/">
+
+                        <img
+                            src="${videoThumbnail(video)}"
+                            width="480"
+                            height="360"
+                            loading="lazy"
+                            decoding="async"
+                            alt="Thumbnail for ${escapeHtml(video.title)}">
+
+                        <strong>
+                            ${escapeHtml(video.title)}
+                        </strong>
+
+                    </a>
+                `
+            ).join("")}
+
+        </div>
+    `;
+}
+
+
+async function generateVideoDetailPages(
+    site,
+    videos,
+    socials
+) {
+    const [
+        templateHtml,
+        headerHtml,
+        footerHtml
+    ] = await Promise.all([
+        readFile(
+            path.join(
+                SITE_ROOT,
+                "_templates",
+                "video.html"
+            ),
+            "utf8"
+        ),
+
+        readFile(
+            path.join(
+                SITE_ROOT,
+                "_partials",
+                "header.html"
+            ),
+            "utf8"
+        ),
+
+        readFile(
+            path.join(
+                SITE_ROOT,
+                "_partials",
+                "footer.html"
+            ),
+            "utf8"
+        )
+    ]);
+
+
+    for (
+        const world
+        of videos.worlds || []
+    ) {
+
+        for (
+            const video
+            of world.videos || []
+        ) {
+
+            const $ =
+                load(
+                    templateHtml,
+                    {
+                        decodeEntities:
+                            false
+                    }
+                );
+
+            const pathname =
+                `/videos/${video.id}/`;
+
+            const canonicalUrl =
+                pageUrl(
+                    site,
+                    pathname
+                );
+
+            const longDescription =
+                video.longDescription
+                || video.description;
+
+
+            $("body")
+                .attr(
+                    "data-page-path",
+                    pathname
+                );
+
+
+            $("#header-placeholder")
+                .html(headerHtml)
+                .attr(
+                    "data-built",
+                    "true"
+                );
+
+
+            $("#footer-placeholder")
+                .html(footerHtml)
+                .attr(
+                    "data-built",
+                    "true"
+                );
+
+
+            $("#site-nav a[href='/videos/']")
+                .addClass("is-active")
+                .attr(
+                    "aria-current",
+                    "page"
+                );
+
+
+            $("[data-current-year]")
+                .text(
+                    String(
+                        new Date()
+                        .getUTCFullYear()
+                    )
+                );
+
+
+            renderSocialLinks(
+                $,
+                socials
+            );
+
+
+            $("title").text(
+                `${video.title} — Fiction2Reality (F2R)`
+            );
+
+
+            upsertMeta(
+                $,
+                'meta[name="description"]',
+                {
+                    name:
+                        "description",
+
+                    content:
+                        longDescription
+                }
+            );
+
+
+            upsertLink(
+                $,
+                'link[rel="canonical"]',
+                {
+                    rel:
+                        "canonical",
+
+                    href:
+                        canonicalUrl
+                }
+            );
+
+
+            upsertMeta(
+                $,
+                'meta[property="og:title"]',
+                {
+                    property:
+                        "og:title",
+
+                    content:
+                        `${video.title} — Fiction2Reality`
+                }
+            );
+
+
+            upsertMeta(
+                $,
+                'meta[property="og:description"]',
+                {
+                    property:
+                        "og:description",
+
+                    content:
+                        longDescription
+                }
+            );
+
+
+            upsertMeta(
+                $,
+                'meta[property="og:url"]',
+                {
+                    property:
+                        "og:url",
+
+                    content:
+                        canonicalUrl
+                }
+            );
+
+
+            upsertMeta(
+                $,
+                'meta[property="og:type"]',
+                {
+                    property:
+                        "og:type",
+
+                    content:
+                        "video.other"
+                }
+            );
+
+
+            upsertMeta(
+                $,
+                'meta[property="og:image"]',
+                {
+                    property:
+                        "og:image",
+
+                    content:
+                        videoThumbnail(video)
+                }
+            );
+
+
+            upsertMeta(
+                $,
+                'meta[name="twitter:card"]',
+                {
+                    name:
+                        "twitter:card",
+
+                    content:
+                        "summary_large_image"
+                }
+            );
+
+
+            $("[data-video-breadcrumbs]")
+                .html(`
+                    <ol>
+
+                        <li>
+                            <a href="/">
+                                Home
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/videos/">
+                                Videos
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/videos/#${escapeHtml(world.id)}">
+
+                                ${escapeHtml(world.title)}
+
+                            </a>
+                        </li>
+
+                        <li aria-current="page">
+                            ${escapeHtml(video.title)}
+                        </li>
+
+                    </ol>
+                `);
+
+
+            $("[data-video-world]")
+                .text(world.title);
+
+
+            $("[data-video-title]")
+                .text(video.title);
+
+
+            $("[data-video-description]")
+                .text(video.description);
+
+
+            $("[data-video-player]")
+                .html(`
+                    <iframe
+                        src="https://www.youtube-nocookie.com/embed/${escapeHtml(video.youtubeId)}?rel=0"
+                        title="${escapeHtml(video.title)}"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen>
+                    </iframe>
+                `);
+
+
+            $("[data-video-actions]")
+                .html(`
+                    <a
+                        class="button"
+                        href="https://www.youtube.com/watch?v=${escapeHtml(video.youtubeId)}"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        Watch on YouTube
+                        <span aria-hidden="true">
+                            ↗
+                        </span>
+
+                    </a>
+
+                    <a
+                        class="button button--secondary"
+                        href="/videos/">
+
+                        Back to Videos
+
+                    </a>
+                `);
+
+
+            $("[data-video-about]")
+                .html(`
+                    <h2>
+                        About This Video
+                    </h2>
+
+                    <p>
+                        ${escapeHtml(longDescription)}
+                    </p>
+                `);
+
+
+            $("[data-video-metadata]")
+                .html(
+                    videoMetadataHtml(
+                        world,
+                        video
+                    )
+                );
+
+
+            const productionHtml = [
+                renderVideoPeople(video),
+                renderVideoArticles(video)
+            ]
+                .filter(Boolean)
+                .join("");
+
+
+            if (productionHtml) {
+
+                $("[data-video-production]")
+                    .html(productionHtml);
+
+            } else {
+
+                $("[data-video-production]")
+                    .remove();
+
+            }
+
+
+            if (
+                compactText(
+                    video.transcript
+                )
+            ) {
+
+                const transcriptParagraphs =
+                    String(video.transcript)
+                    .split(/\n+/)
+                    .filter(Boolean)
+                    .map(
+                        (paragraph) =>
+                            `<p>${escapeHtml(paragraph)}</p>`
+                    )
+                    .join("");
+
+
+                $("[data-video-transcript]")
+                    .html(`
+                        <h2>
+                            Transcript
+                        </h2>
+
+                        <div class="video-detail__transcript">
+                            ${transcriptParagraphs}
+                        </div>
+                    `);
+
+            } else {
+
+                $("[data-video-transcript]")
+                    .remove();
+
+            }
+
+
+            if (
+                (video.notes || []).length
+            ) {
+
+                $("[data-video-notes]")
+                    .html(`
+                        <h2>
+                            Notes
+                        </h2>
+
+                        <ul>
+
+                            ${video.notes.map(
+                                (note) =>
+                                    `<li>${escapeHtml(note)}</li>`
+                            ).join("")}
+
+                        </ul>
+                    `);
+
+            } else {
+
+                $("[data-video-notes]")
+                    .remove();
+
+            }
+
+
+            const relatedHtml =
+                renderRelatedVideos(
+                    world,
+                    video
+                );
+
+
+            if (relatedHtml) {
+
+                $("[data-related-videos]")
+                    .html(relatedHtml);
+
+            } else {
+
+                $("[data-related-videos]")
+                    .remove();
+
+            }
+
+
+            $("head").append(
+                `<script
+                    type="application/ld+json"
+                    data-generated-schema>
+                    ${
+                        JSON.stringify(
+                            videoDetailSchema(
+                                site,
+                                world,
+                                video
+                            ),
+                            null,
+                            2
+                        )
+                        .replaceAll(
+                            "<",
+                            "\\u003c"
+                        )
+                    }
+                </script>`
+            );
+
+
+            const outputFile =
+                path.join(
+                    OUTPUT_ROOT,
+                    "videos",
+                    video.id,
+                    "index.html"
+                );
+
+
+            await mkdir(
+                path.dirname(outputFile),
+                {
+                    recursive: true
+                }
+            );
+
+
+            await writeFile(
+                outputFile,
+                $.html(),
+                "utf8"
+            );
+        }
+    }
 }
 
 function renderHtmlSitemap($, pages) {
@@ -400,7 +1430,22 @@ function videoEntities(videos) {
     ).map((item, index) => ({ ...item, position: index + 1 }));
 }
 
-function buildSchema($, site, page, socials, videos) {
+function partnerEntities(site, partners) {
+    return partners.map((partner, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+            "@type": partner.schemaType || "Organization",
+            name: partner.name,
+            description: partner.description,
+            url: partner.links[0].url,
+            image: pageUrl(site, partner.image),
+            sameAs: partner.links.map((link) => link.url)
+        }
+    }));
+}
+
+function buildSchema($, site, page, socials, videos, partners) {
     const url = pageUrl(site, page.path);
     const organizationId = `${site.baseUrl}/#organization`;
     const websiteId = `${site.baseUrl}/#website`;
@@ -472,11 +1517,22 @@ function buildSchema($, site, page, socials, videos) {
         };
     }
 
+    if (page.path === "/partners/") {
+    webpage.mainEntity = {
+        "@type": "ItemList",
+        name: "Fiction2Reality partners",
+        itemListElement: partnerEntities(
+            site,
+            partners
+        )
+    };
+}
+
     graph.push(webpage);
     return { "@context": "https://schema.org", "@graph": graph };
 }
 
-function applyMetadata($, site, page, socials, videos) {
+function applyMetadata($, site, page, socials, videos, partners) {
     const url = pageUrl(site, page.path);
     const image = pageUrl(site, page.ogImage || site.defaultOgImage);
     const imageAlt = page.ogImageAlt || site.defaultOgImageAlt;
@@ -516,7 +1572,7 @@ function applyMetadata($, site, page, socials, videos) {
     }
 
     $("script[data-generated-schema]").remove();
-    const schema = JSON.stringify(buildSchema($, site, page, socials, videos), null, 2)
+    const schema = JSON.stringify(buildSchema($, site, page, socials, videos, partners), null, 2)
         .replaceAll("<", "\\u003c");
     $("head").append(`<script type="application/ld+json" data-generated-schema>${schema}</script>`);
 }
@@ -539,7 +1595,7 @@ function injectPartials($, headerHtml, footerHtml, page, socials) {
     renderSocialLinks($, socials);
 }
 
-async function transformPages(site, pages, socials, videos) {
+async function transformPages(site, pages, socials, videos, partners) {
     const [headerHtml, footerHtml] = await Promise.all([
         readFile(path.join(SITE_ROOT, "_partials", "header.html"), "utf8"),
         readFile(path.join(SITE_ROOT, "_partials", "footer.html"), "utf8")
@@ -552,11 +1608,12 @@ async function transformPages(site, pages, socials, videos) {
         const $ = load(await readFile(sourceFile, "utf8"), { decodeEntities: false });
         $("body").attr("data-page-path", page.path);
         injectPartials($, headerHtml, footerHtml, page, socials);
+        renderPartners($, partners);
 
         if (page.path === "/videos/") renderVideos($, videos);
         if (page.path === "/site-map/") renderHtmlSitemap($, pages);
 
-        applyMetadata($, site, page, socials, videos);
+        applyMetadata($, site, page, socials, videos, partners);
 
         const outputFile = path.join(OUTPUT_ROOT, page.file);
         await mkdir(path.dirname(outputFile), { recursive: true });
@@ -630,23 +1687,77 @@ ${images.map((image) => `    <image:image>
   </url>`).join("\n")}
 </urlset>\n`;
 
-    const videoBlocks = (videos.worlds || []).flatMap((world) =>
-        (world.videos || []).map((video) => `    <video:video>
-        <video:thumbnail_loc>${escapeXml(videoThumbnail(video))}</video:thumbnail_loc>
-        <video:title>${escapeXml(video.title)}</video:title>
-        <video:description>${escapeXml(video.description)}</video:description>
-        <video:player_loc allow_embed="yes">${escapeXml(`https://www.youtube.com/embed/${video.youtubeId}`)}</video:player_loc>
-        </video:video>`)
-    );
+    const videoUrls =
+        (videos.worlds || [])
+        .flatMap((world) =>
+            (world.videos || [])
+            .map((video) => `
+                <url>
 
-    const videosXml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+                    <loc>
+                        ${
+                            escapeXml(
+                                pageUrl(
+                                    site,
+                                    `/videos/${video.id}/`
+                                )
+                            )
+                        }
+                    </loc>
+
+                    <video:video>
+
+                        <video:thumbnail_loc>
+                            ${
+                                escapeXml(
+                                    videoThumbnail(video)
+                                )
+                            }
+                        </video:thumbnail_loc>
+
+                        <video:title>
+                            ${
+                                escapeXml(
+                                    video.title
+                                )
+                            }
+                        </video:title>
+
+                        <video:description>
+                            ${
+                                escapeXml(
+                                    video.longDescription
+                                    || video.description
+                                )
+                            }
+                        </video:description>
+
+                        <video:player_loc allow_embed="yes">
+                            ${
+                                escapeXml(
+                                    `https://www.youtube.com/embed/${video.youtubeId}`
+                                )
+                            }
+                        </video:player_loc>
+
+                    </video:video>
+
+                </url>
+            `)
+        );
+
+
+    const videosXml =
+    `<?xml version="1.0" encoding="UTF-8"?>
+
+    <urlset
+        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-  <url>
-    <loc>${escapeXml(pageUrl(site, "/videos/"))}</loc>
-${videoBlocks.join("\n")}
-  </url>
-</urlset>\n`;
+
+    ${videoUrls.join("\n")}
+
+    </urlset>
+    `;
 
   const today = new Date().toISOString().slice(0, 10);
   const indexXml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -675,7 +1786,7 @@ ${videoBlocks.join("\n")}
     ]);
 }
 
-async function writePublicData(site, socials, videos) {
+async function writePublicData(site, socials, videos, partners) {
     const outputDirectory = path.join(OUTPUT_ROOT, "assets", "data");
     await mkdir(outputDirectory, { recursive: true });
 
@@ -685,18 +1796,56 @@ async function writePublicData(site, socials, videos) {
         videos: (videos.worlds || []).flatMap((world) =>
         (world.videos || []).map((video) => ({
             id: video.id,
-            url: `/videos/#${video.id}`,
+
+            url: `/videos/${video.id}/`,
+
+            youtubeId: video.youtubeId,
+
             title: video.title,
-            description: video.description,
-            world: world.title,
-            tags: video.tags || [],
-            youtubeId: video.youtubeId
+
+            shortTitle:
+                video.shortTitle
+                || video.title,
+
+            description:
+                video.description,
+
+            longDescription:
+                video.longDescription
+                || "",
+
+            world:
+                world.title,
+
+            worldId:
+                world.id,
+
+            tags:
+                video.tags
+                || [],
+
+            notes:
+                video.notes
+                || [],
+
+            people:
+                video.people
+                || [],
+
+            transcript:
+                video.transcript
+                || "",
+
+            published:
+                video.published
+                || null
         }))
-        )
+    )
     };
 
     const files = [
         ["site.json", site],
+        ["partners.json", { partners }],
         ["social-links.json", { links: socials }],
         ["videos.json", videos],
         ["video-search-index.json", videoIndex]
@@ -776,31 +1925,72 @@ async function validateOutput(site, pages) {
 }
 
 async function main() {
-    const [site, pageData, socialData, videos] = await Promise.all([
+    const [
+        site,
+        pageData,
+        partnerData,
+        socialData,
+        videos
+    ] = await Promise.all([
         readJson(JSON_FILES.site),
         readJson(JSON_FILES.pages),
+        readJson(JSON_FILES.partners),
         readJson(JSON_FILES.socials),
         readJson(JSON_FILES.videos)
     ]);
 
     const pages = pageData.pages || [];
+    const partners = partnerData.partners || [];
     const socials = socialData.links || [];
 
-    validateData(site, pages, socials, videos);
+    validateData(
+        site,
+        pages,
+        socials,
+        videos,
+        partners
+    );
+
     await validatePageRegistry(pages);
     await copyStaticSite();
+
     await Promise.all([
         bundleStyles(),
-        writePublicData(site, socials, videos)
+        writePublicData(
+            site,
+            socials,
+            videos,
+            partners
+        )
     ]);
-    await transformPages(site, pages, socials, videos);
-    await generateSitemaps(site, pages, videos);
+
+    await transformPages(
+        site,
+        pages,
+        socials,
+        videos,
+        partners
+    );
+
+    await generateVideoDetailPages(
+        site,
+        videos,
+        socials
+    );
+
+    await generateSitemaps(
+        site,
+        pages,
+        videos
+    );
     await validateOutput(site, pages);
 
-    console.log(`Built and validated ${pages.length} pages in _site/.`);
-    }
+    console.log(
+        `Built and validated ${pages.length} pages in _site/.`
+    );
+}
 
-    main().catch((error) => {
+main().catch((error) => {
     console.error(error.message);
     process.exitCode = 1;
 });

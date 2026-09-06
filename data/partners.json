@@ -1,0 +1,24 @@
+{
+    "partners": [
+        {
+            "id": "the-backrooms-online",
+            "name": "The Backrooms Online",
+            "relationship": "Site Partner",
+            "description": "The Backrooms Online is creating a central hub for Backrooms lore, history, news, creators, and community resources. Its sister site, BackroomsMovie.com, focuses on Kane Parsons' Backrooms film and related work.",
+            "featuredDescription": "A developing hub for Backrooms lore, history, news, creators, and community resources, with its sister site BackroomsMovie.com covering Kane Parsons' Backrooms film and related work.",
+            "image": "/assets/img/partners/partner-placeholder.svg",
+            "imageAlt": "Placeholder image for The Backrooms Online",
+            "featured": true,
+            "links": [
+                {
+                    "label": "Visit The Backrooms Online",
+                    "url": "https://thebackrooms.online/"
+                },
+                {
+                    "label": "Explore BackroomsMovie.com",
+                    "url": "https://backroomsmovie.com/"
+                }
+            ]
+        }
+    ]
+}

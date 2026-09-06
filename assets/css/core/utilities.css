@@ -10,6 +10,15 @@
     border: 0 !important;
 }
 
+/* Visual text sizing only; no semantic meaning. */
+.text-small {
+    font-size: var(--text-size-small) !important;
+}
+
+.text-extra-small {
+    font-size: var(--text-size-extra-small) !important;
+}
+
 .text-center { text-align: center; }
 
 .eyebrow {

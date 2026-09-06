@@ -21,9 +21,9 @@
     <main id="main-content">
         <header class="page-hero">
         <div class="container">
-            <p class="eyebrow">The moving archive</p>
+            <p class="eyebrow">The Dynamic Archive</p>
             <h1>Videos</h1>
-            <p class="page-hero__summary">Fiction2Reality releases, experiments, and short films—organized by the worlds they explore.</p>
+            <p class="page-hero__summary">Fiction2Reality's films, organized by the worlds they explore.</p>
         </div>
         </header>
 
@@ -35,8 +35,44 @@
                 <li aria-current="page">Videos</li>
             </ol>
             </nav>
-            <h2>Browse the archive</h2>
+            <h2>Browse the Archive</h2>
             <p>Each release includes a short description and opens in an on-page player, with a direct YouTube link available as well.</p>
+        </div>
+        <div class="video-tools">
+            <div class="video-search">
+                <label for="video-search-input">Search videos</label>
+
+                <input
+                    id="video-search-input"
+                    type="search"
+                    placeholder="Search titles, worlds, descriptions, tags..."
+                    autocomplete="off">
+            </div>
+
+            <div class="video-filters">
+                <label for="video-world-filter">World</label>
+
+                <select id="video-world-filter">
+                    <option value="">All worlds</option>
+                </select>
+
+                <label for="video-tag-filter">Tag</label>
+
+                <select id="video-tag-filter">
+                    <option value="">All tags</option>
+                </select>
+
+                <button
+                    class="button button--secondary"
+                    id="video-filter-clear"
+                    type="button">
+                    Clear
+                </button>
+            </div>
+
+            <p class="video-results-status"
+            id="video-results-status"
+            aria-live="polite"></p>
         </div>
         </section>
 

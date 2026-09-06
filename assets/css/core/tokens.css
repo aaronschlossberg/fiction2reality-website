@@ -32,6 +32,8 @@
     --content-width: 72rem;
     --reading-width: 48rem;
     --nav-height: 4.25rem;
+    --text-size-small: 0.875rem;
+    --text-size-extra-small: 0.75rem;
     --transition: 180ms ease;
 }
 

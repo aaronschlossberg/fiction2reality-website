@@ -1,0 +1,35 @@
+.legal-layout {
+    width: min(100%, 60rem);
+    margin-inline: auto;
+}
+
+.legal-card {
+    padding: clamp(1.5rem, 5vw, 3rem);
+}
+
+.legal-card section + section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.legal-card h2 {
+    text-align: center;
+}
+
+.legal-card p {
+    color: var(--color-text-muted);
+}
+
+.legal-card__action {
+    text-align: center;
+}
+
+.legal-card__action p {
+    width: min(100%, 48rem);
+    margin-inline: auto;
+}
+
+.legal-card .button {
+    margin-top: 1.25rem;
+}

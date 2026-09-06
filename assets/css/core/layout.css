@@ -12,18 +12,26 @@
 .section--tight { padding-block: clamp(2.5rem, 6vw, 4rem); }
 
 .section-heading {
-    max-width: 48rem;
+    width: 100%;
+    max-width: none;
     margin: 0 auto 2.25rem;
+    text-align: center;
+}
+
+.section-heading h1,
+.section-heading h2,
+.section-heading h3,
+.section-heading p {
+    width: 100%;
+    max-width: none;
+    margin-inline: auto;
     text-align: center;
 }
 
 .section-heading p {
     color: var(--color-text-muted);
     font-style: italic;
-}
-
-.page-content {
-    padding-block: clamp(2rem, 5vw, 4rem) clamp(4rem, 9vw, 7rem);
+    text-wrap: pretty;
 }
 
 .grid {
@@ -31,12 +39,28 @@
     gap: 1.25rem;
 }
 
-.grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid--three {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.grid--three > * {
+    flex: 0 1 calc((100% - 2.5rem) / 3);
+}
 
 @media (max-width: 56rem) {
-    .grid--three { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid--three > * {
+        flex-basis: calc((100% - 1.25rem) / 2);
+    }
 }
 
 @media (max-width: 38rem) {
-    .grid--three { grid-template-columns: 1fr; }
+    .grid--three > * {
+        flex-basis: 100%;
+    }
+}
+
+.page-content {
+    padding-block: clamp(2rem, 5vw, 4rem) clamp(4rem, 9vw, 7rem);
 }

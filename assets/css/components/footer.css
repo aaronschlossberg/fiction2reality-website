@@ -1,27 +1,49 @@
 .site-footer {
-    padding-block: 3.5rem 2rem;
+    padding-block: 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     background: #080d0f;
     color: #f3f0e8;
+}
+
+.site-footer__inner {
+    display: grid;
+    justify-items: center;
+    gap: 1.35rem;
     text-align: center;
 }
 
-.site-footer h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); }
-
-.site-footer__intro {
-    max-width: 38rem;
-    margin: 0 auto 1.25rem;
-    color: #bdc8c5;
+.site-footer__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #f3f0e8;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
 }
 
-.site-footer .button { margin-bottom: 1.5rem; }
+.site-footer__brand:hover {
+    color: #fff;
+}
+
+.site-footer__brand img {
+    width: 2.65rem;
+    height: 2.65rem;
+    border-radius: 0.75rem;
+}
+
+.footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 1rem;
+}
 
 .footer-socials {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.5rem;
-    margin: 0 auto 1.75rem;
 }
 
 .social-icon {
@@ -34,32 +56,25 @@
     background: rgba(255, 255, 255, 0.06);
 }
 
-.social-icon:hover { background: rgba(255, 255, 255, 0.13); }
+.social-icon:hover {
+    background: rgba(255, 255, 255, 0.13);
+}
 
 .social-icon img {
     width: 1.45rem;
     height: 1.45rem;
 }
 
-.footer-nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.4rem 1rem;
-    margin-bottom: 1.25rem;
+.footer-nav a,
+.site-footer__meta a {
+    color: #d8dfdd;
 }
 
-.footer-nav a,
-.site-credit a { color: #d8dfdd; }
-
-.site-footer__legal,
-.site-credit,
-.rights-note {
+.site-footer__meta {
     color: #9eaaa7;
     font-size: 0.85rem;
 }
 
-.rights-note {
-    max-width: 46rem;
-    margin: 1rem auto 0;
+.site-footer__meta p + p {
+    margin-top: 0.25rem;
 }
