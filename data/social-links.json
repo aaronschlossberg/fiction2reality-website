@@ -6,7 +6,8 @@
             "label": "fiction2reality.innovators@gmail.com",
             "url": "mailto:fiction2reality.innovators@gmail.com?subject=Fiction2Reality%20inquiry",
             "icon": "/assets/img/social_media_logos/gmail.webp",
-            "sameAs": false
+            "relationship": "contact",
+            "contactType": "general inquiries"
         },
         {
             "id": "youtube",
@@ -14,7 +15,7 @@
             "label": "@Fiction.2.Reality",
             "url": "https://www.youtube.com/@Fiction.2.Reality/videos/",
             "icon": "/assets/img/social_media_logos/youtube.webp",
-            "sameAs": true
+            "relationship": "identity"
         },
         {
             "id": "instagram",
@@ -22,7 +23,7 @@
             "label": "@fiction2reality.f2r",
             "url": "https://www.instagram.com/fiction2reality.f2r/",
             "icon": "/assets/img/social_media_logos/instagram.webp",
-            "sameAs": true
+            "relationship": "identity"
         },
         {
             "id": "facebook",
@@ -30,7 +31,7 @@
             "label": "Fiction2Reality (F2R)",
             "url": "https://www.facebook.com/groups/1154558870223746",
             "icon": "/assets/img/social_media_logos/facebook.webp",
-            "sameAs": false
+            "relationship": "community"
         },
         {
             "id": "x",
@@ -38,7 +39,7 @@
             "label": "@f2r_innovators",
             "url": "https://x.com/f2r_innovators/",
             "icon": "/assets/img/social_media_logos/twitter-x.webp",
-            "sameAs": true
+            "relationship": "identity"
         },
         {
             "id": "linkedin",
@@ -46,7 +47,7 @@
             "label": "Fiction2Reality",
             "url": "https://www.linkedin.com/in/fiction2reality/",
             "icon": "/assets/img/social_media_logos/linkedin.webp",
-            "sameAs": true
+            "relationship": "identity"
         },
         {
             "id": "tiktok",
@@ -54,7 +55,7 @@
             "label": "@fiction2reality.f2r",
             "url": "https://www.tiktok.com/@fiction2reality.f2r/",
             "icon": "/assets/img/social_media_logos/tiktok.webp",
-            "sameAs": true
+            "relationship": "identity"
         },
         {
             "id": "substack",
@@ -62,7 +63,7 @@
             "label": "Fiction2Reality",
             "url": "https://fiction2reality.substack.com/",
             "icon": "/assets/img/social_media_logos/substack.webp",
-            "sameAs": true
+            "relationship": "identity"
         },
         {
             "id": "pinterest",
@@ -70,7 +71,15 @@
             "label": "Fiction2Reality",
             "url": "https://www.pinterest.com/fiction2reality/",
             "icon": "/assets/img/social_media_logos/pinterest.webp",
-            "sameAs": true
+            "relationship": "identity"
+        },
+        {
+            "id": "discord",
+            "name": "Discord Account",
+            "label": "Fiction2Reality",
+            "url": "https://discord.com/users/1410068484326686897",
+            "icon": "/assets/img/social_media_logos/discord.webp",
+            "relationship": "identity"
         }
     ]
 }

@@ -2,7 +2,10 @@
   "name": "fiction2reality",
   "private": true,
   "scripts": {
-    "build": "node scripts/build-site.mjs"
+    "build:site": "node scripts/build-site.mjs",
+    "validate:output": "node scripts/validate-site.mjs",
+    "validate": "npm run build:site && npm run validate:output",
+    "build": "npm run validate"
   },
   "devDependencies": {
     "cheerio": "1.2.0"

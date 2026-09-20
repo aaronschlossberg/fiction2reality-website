@@ -33,3 +33,13 @@
 .contact-channels .social-card {
     text-align: left;
 }
+
+.contact-channels .social-grid--centered {
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(min(100%, 15rem), 20rem)
+        );
+
+    justify-content: center;
+}

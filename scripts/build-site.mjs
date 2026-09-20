@@ -25,6 +25,7 @@ const EXCLUDED_ROOT_ENTRIES = new Set([
     ".gitignore",
     ".vscode",
     "_partials",
+    "_templates",
     "_site",
     "data",
     "netlify.toml",
@@ -180,14 +181,50 @@ function validateData(site, pages, socials, videos, partners) {
     }
 
     const socialIds = new Set();
+    const socialRelationships = new Set([
+        "identity",
+        "contact",
+        "community"
+    ]);
+
     for (const social of socials) {
         assertPlainText(social.id, "social id");
         assertPlainText(social.name, `${social.id} name`);
         assertPlainText(social.url, `${social.id} URL`);
-        if (socialIds.has(social.id)) throw new Error(`Duplicate social id: ${social.id}`);
+
+        if (socialIds.has(social.id)) {
+            throw new Error(`Duplicate social id: ${social.id}`);
+        }
+
         socialIds.add(social.id);
 
-        if (!social.url.startsWith("mailto:")) new URL(social.url);
+        if (!socialRelationships.has(social.relationship)) {
+            throw new Error(
+                `${social.id} relationship must be identity, contact, or community.`
+            );
+        }
+
+        if (
+            social.relationship === "identity"
+            && social.url.startsWith("mailto:")
+        ) {
+            throw new Error(
+                `${social.id} cannot use a mailto URL as an identity profile.`
+            );
+        }
+
+        if (
+            social.relationship === "contact"
+            && !social.contactType
+        ) {
+            throw new Error(
+                `${social.id} contactType is required for contact links.`
+            );
+        }
+
+        if (!social.url.startsWith("mailto:")) {
+            new URL(social.url);
+        }
     }
 
     const partnerIds = new Set();
@@ -361,19 +398,73 @@ function upsertLink($, selector, attributes) {
 
 function socialAnchor(social, iconOnly = false) {
     const external = !social.url.startsWith("mailto:");
-    const attrs = external
-        ? ' target="_blank" rel="me noopener noreferrer"'
-        : "";
-    const content = iconOnly
-        ? `<img src="${escapeHtml(social.icon)}" width="64" height="64" alt="">` 
-        : `<img src="${escapeHtml(social.icon)}" width="64" height="64" alt=""><span><strong>${escapeHtml(social.name)}</strong><small>${escapeHtml(social.label)}</small></span>`;
 
-    return `<a class="${iconOnly ? "social-icon" : "social-card"}" href="${escapeHtml(social.url)}"${attrs} aria-label="${escapeHtml(social.name)}">${content}</a>`;
+    const relationshipTokens =
+        social.relationship === "identity"
+            ? "me "
+            : "";
+
+    const attrs = external
+        ? ` target="_blank" rel="${relationshipTokens}noopener noreferrer"`
+        : "";
+
+    const content = iconOnly
+        ? `
+            <img
+                src="${escapeHtml(social.icon)}"
+                width="64"
+                height="64"
+                alt="">
+        `
+        : `
+            <img
+                src="${escapeHtml(social.icon)}"
+                width="64"
+                height="64"
+                alt="">
+
+            <span>
+                <strong>${escapeHtml(social.name)}</strong>
+                <small>${escapeHtml(social.label)}</small>
+            </span>
+        `;
+
+    return `
+        <a
+            class="${iconOnly ? "social-icon" : "social-card"}"
+            href="${escapeHtml(social.url)}"
+            ${attrs}
+            aria-label="${escapeHtml(social.name)}">
+
+            ${content}
+        </a>
+    `;
 }
 
 function renderSocialLinks($, socials) {
-    $("[data-social-grid]").html(socials.map((social) => socialAnchor(social)).join(""));
-    $("[data-social-icons]").html(socials.map((social) => socialAnchor(social, true)).join(""));
+    $("[data-social-grid]").each((_, element) => {
+        const grid = $(element);
+        const relationship = grid.attr("data-social-grid");
+
+        const selected = relationship
+            ? socials.filter(
+                (social) =>
+                    social.relationship === relationship
+            )
+            : socials;
+
+        grid.html(
+            selected
+                .map((social) => socialAnchor(social))
+                .join("")
+        );
+    });
+
+    $("[data-social-icons]").html(
+        socials
+            .map((social) => socialAnchor(social, true))
+            .join("")
+    );
 }
 
 function partnerCard(partner, { compact = false } = {}) {
@@ -497,6 +588,7 @@ function renderVideos($, videos) {
         const searchText = compactText([
             video.title,
             video.shortTitle,
+
             video.description,
             video.longDescription,
 
@@ -505,10 +597,17 @@ function renderVideos($, videos) {
 
             ...(video.tags || []),
             ...(video.notes || []),
+            ...(video.searchTerms || []),
 
             ...(video.people || []).flatMap((person) => [
                 person.name,
                 person.role
+            ]),
+
+            ...(video.articles || []).flatMap((article) => [
+                article.label,
+                article.title,
+                article.description
             ]),
 
             video.transcript
@@ -633,11 +732,14 @@ function videoDetailSchema(
                     videoThumbnail(video)
                 ],
 
+                uploadDate:
+                    video.published,
+
+                duration:
+                    video.duration,
+
                 embedUrl:
                     `https://www.youtube-nocookie.com/embed/${video.youtubeId}`,
-
-                contentUrl:
-                    `https://www.youtube.com/watch?v=${video.youtubeId}`,
 
                 url,
 
@@ -1007,7 +1109,7 @@ async function generateVideoDetailPages(
 
 
             $("title").text(
-                `${video.title} — Fiction2Reality (F2R)`
+                `${video.title} - Video | Fiction2Reality`
             );
 
 
@@ -1045,7 +1147,7 @@ async function generateVideoDetailPages(
                         "og:title",
 
                     content:
-                        `${video.title} — Fiction2Reality`
+                        `${video.title} - Video | Fiction2Reality`
                 }
             );
 
@@ -1101,6 +1203,41 @@ async function generateVideoDetailPages(
                 }
             );
 
+            upsertMeta(
+                $,
+                'meta[property="og:image:alt"]',
+                {
+                    property: "og:image:alt",
+                    content: `YouTube thumbnail for ${video.title}`
+                }
+            );
+
+            upsertMeta(
+                $,
+                'meta[name="robots"]',
+                {
+                    name: "robots",
+                    content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+                }
+            );
+
+            upsertMeta(
+                $,
+                'meta[property="og:site_name"]',
+                {
+                    property: "og:site_name",
+                    content: site.name
+                }
+            );
+
+            upsertMeta(
+                $,
+                'meta[property="og:locale"]',
+                {
+                    property: "og:locale",
+                    content: site.locale
+                }
+            );
 
             upsertMeta(
                 $,
@@ -1111,6 +1248,42 @@ async function generateVideoDetailPages(
 
                     content:
                         "summary_large_image"
+                }
+            );
+
+            upsertMeta(
+                $,
+                'meta[name="twitter:title"]',
+                {
+                    name: "twitter:title",
+                    content: `${video.title} — Fiction2Reality`
+                }
+            );
+
+            upsertMeta(
+                $,
+                'meta[name="twitter:description"]',
+                {
+                    name: "twitter:description",
+                    content: longDescription
+                }
+            );
+
+            upsertMeta(
+                $,
+                'meta[name="twitter:image"]',
+                {
+                    name: "twitter:image",
+                    content: videoThumbnail(video)
+                }
+            );
+
+            upsertMeta(
+                $,
+                'meta[name="twitter:image:alt"]',
+                {
+                    name: "twitter:image:alt",
+                    content: `YouTube thumbnail for ${video.title}`
                 }
             );
 
@@ -1422,6 +1595,8 @@ function videoEntities(videos) {
             name: video.title,
             description: video.description,
             thumbnailUrl: [videoThumbnail(video)],
+            uploadDate: video.published,
+            duration: video.duration,
             embedUrl: `https://www.youtube.com/embed/${video.youtubeId}`,
             url: `https://www.youtube.com/watch?v=${video.youtubeId}`,
             keywords: (video.tags || []).join(", ")
@@ -1450,6 +1625,32 @@ function buildSchema($, site, page, socials, videos, partners) {
     const organizationId = `${site.baseUrl}/#organization`;
     const websiteId = `${site.baseUrl}/#website`;
     const webpageId = `${url}#webpage`;
+
+    const identityLinks = socials
+        .filter(
+            (social) =>
+                social.relationship === "identity"
+        )
+        .map(
+            (social) =>
+                social.url
+        );
+
+    const contactLinks = socials.filter(
+        (social) =>
+            social.relationship === "contact"
+    );
+
+    const communityLinks = socials.filter(
+        (social) =>
+            social.relationship === "community"
+    );
+
+    const communityIds = communityLinks.map(
+        (social) =>
+            `${site.baseUrl}/#community-${social.id}`
+    );
+
     const graph = [
         {
         "@type": "Organization",
@@ -1467,7 +1668,33 @@ function buildSchema($, site, page, socials, videos, partners) {
             name: site.founder.name,
             url: site.founder.url
         } : undefined,
-        sameAs: socials.filter((social) => social.sameAs).map((social) => social.url)
+        sameAs: identityLinks,
+
+        contactPoint: contactLinks.map((social) => ({
+            "@type": "ContactPoint",
+
+            contactType:
+                social.contactType,
+
+            email:
+                social.url.startsWith("mailto:")
+                    ? decodeURIComponent(
+                        social.url
+                            .slice(7)
+                            .split("?")[0]
+                    )
+                    : undefined,
+
+            url:
+                social.url,
+
+            availableLanguage:
+                site.language
+        })),
+
+        subOrganization: communityIds.map((id) => ({
+            "@id": id
+        }))
         },
         {
         "@type": "WebSite",
@@ -1480,6 +1707,26 @@ function buildSchema($, site, page, socials, videos, partners) {
         publisher: { "@id": organizationId }
         }
     ];
+
+    communityLinks.forEach((social, index) => {
+        graph.push({
+            "@type": "Organization",
+            "@id": communityIds[index],
+
+            name:
+                social.name,
+
+            alternateName:
+                social.label,
+
+            url:
+                social.url,
+
+            parentOrganization: {
+                "@id": organizationId
+            }
+        });
+    });
 
     const webpage = {
         "@type": page.schemaType || "WebPage",
@@ -1828,8 +2075,16 @@ async function writePublicData(site, socials, videos, partners) {
                 video.notes
                 || [],
 
+            searchTerms:
+                video.searchTerms
+                || [],
+
             people:
                 video.people
+                || [],
+
+            articles:
+                video.articles
                 || [],
 
             transcript:
@@ -1915,7 +2170,14 @@ async function validateOutput(site, pages) {
         }
     }
 
-    for (const forbidden of ["data", "scripts", "node_modules", "_partials", "assets/img/source"]) {
+    for (const forbidden of [
+        "data",
+        "scripts",
+        "node_modules",
+        "_partials",
+        "_templates",
+        "assets/img/source"
+    ]) {
         if (await exists(path.join(OUTPUT_ROOT, forbidden))) {
         errors.push(`_site must not contain ${forbidden}.`);
         }

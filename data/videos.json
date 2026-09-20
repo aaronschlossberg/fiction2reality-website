@@ -1,65 +1,109 @@
 {
-  "worlds": [
-    {
-      "id": "backrooms-liminal",
-      "title": "Backrooms & Liminal",
-      "description": "The Backrooms and other liminal, surreal spaces, found-footage storytelling, and environments that feel too familiar to be safe.",
-      "accent": "#d6a84a",
-      "videos": [
+    "worlds": [
         {
-          "id": "lobby-lingerer-v1",
-          "youtubeId": "6y0-W0RH0ak",
+            "id": "backrooms-liminal",
+            "title": "Backrooms & Liminal",
+            "description": "The Backrooms and other liminal, surreal spaces, found-footage storytelling, and environments that feel too familiar to be safe.",
+            "accent": "#d6a84a",
+            "videos": [
+                {
+                    "id": "lobby-lingerer-v1",
+                    "youtubeId": "6y0-W0RH0ak",
 
-          "title": "Backrooms: Lobby Lingerer (V1)",
-          "shortTitle": "Lobby Lingerer (V1)",
+                    "title": "Backrooms: Lobby Lingerer (V1)",
+                    "shortTitle": "Lobby Lingerer (V1)",
 
-          "description": "After noclipping out of reality, Adam wanders the Backrooms Lobby... but something is different. Version 1.",
+                    "description": "After noclipping out of reality, Adam wanders the Backrooms Lobby... but something is different. Version 1.",
 
-          "longDescription": "Lobby Lingerer is an early Fiction2Reality Backrooms short centered on an uncanny lobby environment and the feeling that familiar architecture has become subtly wrong.",
+                    "longDescription": "Watch Lobby Lingerer V1, a Fiction2Reality Backrooms short in which Adam noclips into an uncanny lobby with palm trees growing through the carpet.",
 
-          "tags": [
-            "Backrooms",
-            "liminal spaces",
-            "3D animation",
-            "found footage"
-          ],
+                    "published": "2026-01-02",
+                    "duration": "PT3M24S",
 
-          "people": [],
+                    "tags": [
+                        "Backrooms",
+                        "liminal spaces",
+                        "3D animation",
+                        "found footage"
+                    ],
 
-          "articles": [],
+                    "people": [],
 
-          "notes": [],
+                    "articles": [],
 
-          "transcript": ""
-        },
+                    "notes": [
+                        "Palm trees grow directly out of the carpet inside the Backrooms lobby.",
+                        "The environment includes a carpeted indoor slope.",
+                        "The setting intentionally mixes familiar architecture with impossible liminal details."
+                    ],
 
-        {
-          "id": "lobby-lingerer-v2",
-          "youtubeId": "y6Dq2nGNVDY",
+                    "searchTerms": [
+                        "palm tree",
+                        "palm trees",
+                        "trees",
+                        "carpet",
+                        "carpeted slope",
+                        "indoor slope",
+                        "lobby",
+                        "Backrooms lobby",
+                        "liminal architecture",
+                        "surreal architecture",
+                        "weird architecture",
+                        "noclip",
+                        "Adam"
+                    ],
 
-          "title": "Backrooms: Lobby Lingerer (V2)",
-          "shortTitle": "Lobby Lingerer (V2)",
+                    "transcript": ""
+                },
 
-          "description": "After noclipping out of reality, Adam wanders the Backrooms Lobby... but something is different. Version 2.",
+                {
+                    "id": "lobby-lingerer-v2",
+                    "youtubeId": "y6Dq2nGNVDY",
 
-          "longDescription": "Version 2 revisits the Lobby Lingerer concept as Fiction2Reality continues refining the environment, presentation, and atmosphere of the Backrooms-inspired short.",
+                    "title": "Backrooms: Lobby Lingerer (V2)",
+                    "shortTitle": "Lobby Lingerer (V2)",
 
-          "tags": [
-            "Backrooms",
-            "liminal spaces",
-            "3D animation",
-            "found footage"
-          ],
+                    "description": "After noclipping out of reality, Adam wanders the Backrooms Lobby... but something is different. Version 2.",
 
-          "people": [],
+                    "longDescription": "Watch Lobby Lingerer V2, a revised Fiction2Reality Backrooms short following Adam through an uncanny, palm-tree-filled liminal lobby.",
 
-          "articles": [],
+                    "published": "2026-01-05",
+                    "duration": "PT3M25S",
 
-          "notes": [],
+                    "tags": [
+                        "Backrooms",
+                        "liminal spaces",
+                        "3D animation",
+                        "found footage"
+                    ],
 
-          "transcript": ""
+                    "people": [],
+
+                    "articles": [],
+
+                    "notes": [
+                        "A revised version of Lobby Lingerer with changes to the presentation and environment."
+                    ],
+
+                    "searchTerms": [
+                        "palm tree",
+                        "palm trees",
+                        "trees",
+                        "carpet",
+                        "carpeted slope",
+                        "lobby",
+                        "Backrooms lobby",
+                        "liminal architecture",
+                        "found footage",
+                        "noclip",
+                        "Adam",
+                        "Lobby Lingerer version 2",
+                        "Lobby Lingerer V2"
+                    ],
+
+                    "transcript": ""
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
