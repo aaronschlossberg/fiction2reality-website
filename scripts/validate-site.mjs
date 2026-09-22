@@ -556,6 +556,74 @@ async function validateHtml(file) {
             "href"
         );
 
+        const googleMeasurementId = compact(
+            SITE_DATA.analytics?.googleMeasurementId
+        );
+
+        const googleLoaders = $(
+            'script[src^="https://www.googletagmanager.com/gtag/js"]'
+        );
+
+        const generatedGoogleTags = $(
+            "script[data-generated-google-tag]"
+        );
+
+        const expectedGoogleLoader =
+            `https://www.googletagmanager.com/gtag/js?id=${googleMeasurementId}`;
+
+        if (!/^G-[A-Z0-9]+$/.test(googleMeasurementId)) {
+            error(
+                file,
+                "data/site.json needs a valid analytics.googleMeasurementId beginning with G-."
+            );
+        }
+
+        if (googleLoaders.length !== 1) {
+            error(
+                file,
+                `Expected exactly one Google tag loader; found ${googleLoaders.length}.`
+            );
+        } else {
+            const loader = googleLoaders.first();
+
+            if (loader.attr("src") !== expectedGoogleLoader) {
+                error(
+                    file,
+                    `Google tag loader does not use ${googleMeasurementId}.`
+                );
+            }
+
+            if (loader.attr("async") === undefined) {
+                error(
+                    file,
+                    "Google tag loader must have the async attribute."
+                );
+            }
+        }
+
+        if (generatedGoogleTags.length !== 2) {
+            error(
+                file,
+                `Expected exactly two generated Google tag scripts; found ${generatedGoogleTags.length}.`
+            );
+        }
+
+        const googleConfigScripts = generatedGoogleTags.filter(
+            (_, element) => !$(element).attr("src")
+        );
+
+        if (
+            googleConfigScripts.length !== 1
+            || !googleConfigScripts.text().includes(
+                `gtag('config', '${googleMeasurementId}')`
+            )
+        ) {
+            error(
+                file,
+                `Google tag configuration for ${googleMeasurementId} is missing or duplicated.`
+            );
+        }
+
     if (
         canonical &&
         canonical !== canonicalExpected

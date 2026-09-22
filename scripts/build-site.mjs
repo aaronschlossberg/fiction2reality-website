@@ -158,6 +158,16 @@ function validateData(site, pages, socials, videos, partners) {
     assertPlainText(site.name, "site.name");
     assertPlainText(site.description, "site.description");
 
+    const googleMeasurementId = compactText(
+        site.analytics?.googleMeasurementId
+    );
+
+    if (!/^G-[A-Z0-9]+$/.test(googleMeasurementId)) {
+        throw new Error(
+            "site.analytics.googleMeasurementId must be a valid GA4 measurement ID beginning with G-."
+        );
+    }
+
     const origin = new URL(site.baseUrl);
     if (origin.protocol !== "https:" || origin.pathname !== "/") {
         throw new Error("site.baseUrl must be an HTTPS origin without a path.");
@@ -394,6 +404,31 @@ function upsertLink($, selector, attributes) {
         $("head").append(element);
     }
     element.attr(attributes);
+}
+
+function injectGoogleTag($, site) {
+    const measurementId = compactText(
+        site.analytics?.googleMeasurementId
+    );
+
+    $("script[data-generated-google-tag]").remove();
+
+    const googleTag = `
+<script async src="https://www.googletagmanager.com/gtag/js?id=${measurementId}" data-generated-google-tag></script>
+<script data-generated-google-tag>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '${measurementId}');
+</script>`;
+
+    const charset = $("head > meta[charset]").first();
+
+    if (charset.length) {
+        charset.after(googleTag);
+    } else {
+        $("head").prepend(googleTag);
+    }
 }
 
 function socialAnchor(social, iconOnly = false) {
@@ -1517,7 +1552,7 @@ async function generateVideoDetailPages(
                     }
                 </script>`
             );
-
+            injectGoogleTag($, site);
 
             const outputFile =
                 path.join(
@@ -1861,6 +1896,7 @@ async function transformPages(site, pages, socials, videos, partners) {
         if (page.path === "/site-map/") renderHtmlSitemap($, pages);
 
         applyMetadata($, site, page, socials, videos, partners);
+        injectGoogleTag($, site);
 
         const outputFile = path.join(OUTPUT_ROOT, page.file);
         await mkdir(path.dirname(outputFile), { recursive: true });
